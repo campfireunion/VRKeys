@@ -4,6 +4,12 @@
 
 VRKeys is a simple keyboard interface for single-line text input that integrates with [NewtonVR](https://github.com/TomorrowTodayLabs/NewtonVR).
 
-It also uses the [Oculus Audio SDK](https://developer.oculus.com/downloads/package/oculus-audio-sdk-plugins/) for spatialization of audio produced when you press a key, but this is easily replaceable too (just remove the `ONSP Audio Source` component from the Sphere under `LeftMallet` and `RightMallet`).
+Requirements:
+
+* [NewtonVR](https://github.com/TomorrowTodayLabs/NewtonVR)
+* [TextMesh Pro](https://www.assetstore.unity3d.com/en/#!/content/84126)
+* [Oculus Audio SDK](https://developer.oculus.com/downloads/package/oculus-audio-sdk-plugins/)
+
+> To replace the Oculus Audio SDK with an alternate spatializer, just remove `ONSP AudioSource` from the Sphere object under `LeftMallet` and `RightMallet`.
 
 Brought to you by [The Campfire Union](https://www.campfireunion.com/).
