@@ -149,9 +149,9 @@ namespace VRKeys {
 		IEnumerator PositionAndAttachMallets () {
 			yield return new WaitUntil (() => NVRPlayer.Instances.Count > 0);
 
-			transform.position = NVRPlayer.Instance.gameObject.transform.position + positionRelativeToUser;
-			//TODO: Account for rotation of player
-
+			transform.SetParent (NVRPlayer.Instance.gameObject.transform, false);
+			transform.localPosition = positionRelativeToUser;
+			
 			leftMallet.transform.SetParent (NVRPlayer.Instance.LeftHand.transform);
 			leftMallet.transform.localPosition = Vector3.zero;
 			leftMallet.transform.localRotation = Quaternion.Euler (90f, 0f, 0f);
@@ -165,12 +165,10 @@ namespace VRKeys {
 
 		private void OnDisable () {
 			if (leftMallet != null) {
-				leftMallet.transform.SetParent (null);
 				leftMallet.SetActive (false);
 			}
 
 			if (rightMallet != null) {
-				rightMallet.transform.SetParent (null);
 				rightMallet.SetActive (false);
 			}
 		}
