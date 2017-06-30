@@ -1,6 +1,6 @@
 # VRKeys - A VR keyboard for use with NewtonVR
 
-![VRKeys Screenshot](https://github.com/campfireunion/VRKeys/blob/master/Textures/vrkeys-screenshot.png?raw=true)
+![VRKeys Screenshot](https://github.com/campfireunion/VRKeys/blob/master/Assets/VRKeys/Textures/vrkeys-screenshot.png?raw=true)
 
 VRKeys is a simple keyboard interface for single-line text input that integrates with [NewtonVR](https://github.com/TomorrowTodayLabs/NewtonVR).
 
