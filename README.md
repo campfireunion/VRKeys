@@ -6,6 +6,7 @@ VRKeys is a simple keyboard interface for single-line text input that integrates
 
 Requirements:
 
+* [SteamVR](https://www.assetstore.unity3d.com/en/#!/content/32647) and/or [Oculus Utilities for Unity](https://developer.oculus.com/downloads/package/oculus-utilities-for-unity-5/)
 * [NewtonVR](https://github.com/TomorrowTodayLabs/NewtonVR)
 * [TextMesh Pro](https://www.assetstore.unity3d.com/en/#!/content/84126)
 * [Oculus Audio SDK](https://developer.oculus.com/downloads/package/oculus-audio-sdk-plugins/)
