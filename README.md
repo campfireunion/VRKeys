@@ -11,7 +11,7 @@ Requirements:
 * [TextMesh Pro](https://www.assetstore.unity3d.com/en/#!/content/84126)
 * [Oculus Audio SDK](https://developer.oculus.com/downloads/package/oculus-audio-sdk-plugins/)
 
-> To replace the Oculus Audio SDK with an alternate spatializer, just remove `ONSP AudioSource` from the Sphere object under `LeftMallet` and `RightMallet`.
+> To replace the Oculus Audio SDK with an alternate spatializer, just remove `ONSP Audio Source` from the Sphere object under `LeftMallet` and `RightMallet`.
 
 Installation:
 
