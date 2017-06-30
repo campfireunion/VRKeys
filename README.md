@@ -13,4 +13,11 @@ Requirements:
 
 > To replace the Oculus Audio SDK with an alternate spatializer, just remove `ONSP AudioSource` from the Sphere object under `LeftMallet` and `RightMallet`.
 
+Installation:
+
+1. Install the prerequisites above
+2. Download [VRKeys.unitypackage](https://github.com/campfireunion/VRKeys/blob/master/VRKeys.unitypackage)
+3. Import into your project via Assets > Import Package > Custom Package
+4. Open `Assets/VRKeys/Scenes/VRKeys Example.unity` to see a working example scene
+
 Brought to you by [The Campfire Union](https://www.campfireunion.com/).
