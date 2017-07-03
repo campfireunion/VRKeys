@@ -122,6 +122,7 @@ namespace VRKeys {
 
 		public KeyboardSize defaultSize = KeyboardSize.Medium;
 
+		[SerializeField]
 		public SizeInfo[] sizes;
 
 		[Space (10)]
