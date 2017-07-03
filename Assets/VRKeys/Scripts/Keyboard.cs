@@ -76,6 +76,8 @@ namespace VRKeys {
 
 		public GameObject rightMallet;
 
+		public GameObject keyboardWrapper;
+
 		public Key[] extraKeys;
 
 		private string[] row1 = { "`", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=" };
@@ -103,6 +105,24 @@ namespace VRKeys {
 		public float row3Offset = 0f;
 
 		public float row4Offset = -0.08f;
+
+		public enum KeyboardSize {
+			Small = 1,
+			Medium = 2,
+			Large = 3
+		}
+
+		[Serializable]
+		public class SizeInfo {
+			public KeyboardSize size;
+			public Vector3 position;
+			public Vector3 scale;
+			public SizeKey key;
+		}
+
+		public KeyboardSize defaultSize = KeyboardSize.Medium;
+
+		public SizeInfo[] sizes;
 
 		[Space (10)]
 
@@ -134,6 +154,8 @@ namespace VRKeys {
 
 		private bool disabled = false;
 
+		private KeyboardSize size;
+
 		// Use this for initialization
 		void Start () {
 			StartCoroutine (SetupKeys ());
@@ -146,6 +168,12 @@ namespace VRKeys {
 
 			UpdateDisplayText ();
 			PlaceholderVisibility ();
+
+			if (PlayerPrefs.HasKey ("vrkeys:size")) {
+				defaultSize = (KeyboardSize) PlayerPrefs.GetInt ("vrkeys:size");
+			}
+
+			Resize (defaultSize);
 
 			StartCoroutine (PositionAndAttachMallets ());
 		}
@@ -273,6 +301,23 @@ namespace VRKeys {
 		/// </summary>
 		public void Submit () {
 			OnSubmit.Invoke (text);
+		}
+
+		/// <summary>
+		/// Resize the keyboard.
+		/// </summary>
+		/// <param name="newSize">New size.</param>
+		public void Resize (KeyboardSize newSize) {
+			PlayerPrefs.SetInt ("vrkeys:size", (int) newSize);
+			size = newSize;
+
+			foreach (SizeInfo info in sizes) {
+				if (info.size == size) {
+					keyboardWrapper.transform.localPosition = info.position;
+					keyboardWrapper.transform.localScale = info.scale;
+				}
+				info.key.SetActiveSize (size);
+			}
 		}
 
 		/// <summary>

@@ -70,6 +70,15 @@ namespace VRKeys {
 			disabled = false;
 			transform.localPosition = defaultPosition;
 			meshRenderer.material = inactiveMat;
+
+			OnEnableExtras ();
+		}
+
+		/// <summary>
+		/// Override this to add custom logic on enable.
+		/// </summary>
+		protected virtual void OnEnableExtras () {
+			// Override me!
 		}
 
 		public void OnTriggerEnter (Collider other) {
