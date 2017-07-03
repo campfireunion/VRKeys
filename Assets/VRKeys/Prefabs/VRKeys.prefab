@@ -1698,6 +1698,7 @@ MonoBehaviour:
   useInvSqr: 1
   near: 0.25
   far: 250
+  volumetricRadius: 0
   enableRfl: 0
 --- !u!114 &114000010496374686
 MonoBehaviour:
@@ -1965,6 +1966,7 @@ MonoBehaviour:
   label: {fileID: 114000012530348626}
   inactiveMat: {fileID: 2100000, guid: 021552db260a9654ea7d9d472e44eb58, type: 2}
   activeMat: {fileID: 2100000, guid: 157abfb689445624c97d685110ed6172, type: 2}
+  disabledMat: {fileID: 2100000, guid: 05726c44b31fc344db9d054567e02ee4, type: 2}
   defaultPosition: {x: 0, y: 0, z: 0}
   pressedPosition: {x: 0, y: 0, z: 0}
   pressDirection: {x: 0, y: -1, z: 0}
@@ -2124,6 +2126,7 @@ MonoBehaviour:
   label: {fileID: 114000013264606984}
   inactiveMat: {fileID: 2100000, guid: 021552db260a9654ea7d9d472e44eb58, type: 2}
   activeMat: {fileID: 2100000, guid: 157abfb689445624c97d685110ed6172, type: 2}
+  disabledMat: {fileID: 2100000, guid: 05726c44b31fc344db9d054567e02ee4, type: 2}
   defaultPosition: {x: 0, y: 0, z: 0}
   pressedPosition: {x: 0, y: 0, z: 0}
   pressDirection: {x: 0, y: -1, z: 0}
@@ -2381,6 +2384,7 @@ MonoBehaviour:
   label: {fileID: 114000011457087486}
   inactiveMat: {fileID: 2100000, guid: 021552db260a9654ea7d9d472e44eb58, type: 2}
   activeMat: {fileID: 2100000, guid: 157abfb689445624c97d685110ed6172, type: 2}
+  disabledMat: {fileID: 2100000, guid: 05726c44b31fc344db9d054567e02ee4, type: 2}
   defaultPosition: {x: 0, y: 0, z: 0}
   pressedPosition: {x: 0, y: 0, z: 0}
   pressDirection: {x: 0, y: -1, z: 0}
@@ -2416,6 +2420,12 @@ MonoBehaviour:
   text: 
   leftMallet: {fileID: 1000012940491476}
   rightMallet: {fileID: 1000011812438282}
+  extraKeys:
+  - {fileID: 114000012540649824}
+  - {fileID: 114000010748070872}
+  - {fileID: 114000011540811320}
+  - {fileID: 114000011314641286}
+  - {fileID: 114000012720594730}
   row1Offset: 0.16
   row2Offset: 0.08
   row3Offset: 0
@@ -2424,13 +2434,35 @@ MonoBehaviour:
   rightPressing: 0
   OnUpdate:
     m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: VRKeys.Keyboard+KeyboardUpdateEvent, Assembly-CSharp, Version=1.0.0.0,
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: HandleUpdate
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: VRKeys.Keyboard+KeyboardUpdateEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   OnSubmit:
     m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: VRKeys.Keyboard+KeyboardSubmitEvent, Assembly-CSharp, Version=1.0.0.0,
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: HandleSubmit
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: VRKeys.Keyboard+KeyboardSubmitEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &114000011935164620
 MonoBehaviour:
@@ -2453,9 +2485,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 38f808c305286c74c995ba67439a2484, type: 2}
-  m_sharedMaterial: {fileID: 21000010707259418, guid: 38f808c305286c74c995ba67439a2484,
-    type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 715b80e429c437e40867928a4e1fc975, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 715b80e429c437e40867928a4e1fc975, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2604,6 +2635,7 @@ MonoBehaviour:
   useInvSqr: 1
   near: 0.25
   far: 250
+  volumetricRadius: 0
   enableRfl: 0
 --- !u!114 &114000012469375632
 MonoBehaviour:
@@ -2759,6 +2791,7 @@ MonoBehaviour:
   label: {fileID: 114000010527790036}
   inactiveMat: {fileID: 2100000, guid: 021552db260a9654ea7d9d472e44eb58, type: 2}
   activeMat: {fileID: 2100000, guid: 157abfb689445624c97d685110ed6172, type: 2}
+  disabledMat: {fileID: 2100000, guid: 05726c44b31fc344db9d054567e02ee4, type: 2}
   defaultPosition: {x: 0, y: 0, z: 0}
   pressedPosition: {x: 0, y: 0, z: 0}
   pressDirection: {x: 0, y: -1, z: 0}
@@ -2779,6 +2812,7 @@ MonoBehaviour:
   label: {fileID: 114000014124921810}
   inactiveMat: {fileID: 2100000, guid: 021552db260a9654ea7d9d472e44eb58, type: 2}
   activeMat: {fileID: 2100000, guid: 157abfb689445624c97d685110ed6172, type: 2}
+  disabledMat: {fileID: 2100000, guid: 05726c44b31fc344db9d054567e02ee4, type: 2}
   defaultPosition: {x: 0, y: 0, z: 0}
   pressedPosition: {x: 0, y: 0, z: 0}
   pressDirection: {x: 0, y: -1, z: 0}
@@ -2812,6 +2846,7 @@ MonoBehaviour:
   label: {fileID: 114000010799792276}
   inactiveMat: {fileID: 2100000, guid: 021552db260a9654ea7d9d472e44eb58, type: 2}
   activeMat: {fileID: 2100000, guid: 157abfb689445624c97d685110ed6172, type: 2}
+  disabledMat: {fileID: 2100000, guid: 05726c44b31fc344db9d054567e02ee4, type: 2}
   defaultPosition: {x: 0, y: 0, z: 0}
   pressedPosition: {x: 0, y: 0, z: 0}
   pressDirection: {x: 0, y: -1, z: 0}
@@ -3626,8 +3661,8 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.0000000018626451, y: -0.0000000018626451}
-  m_SizeDelta: {x: -0.1, y: -0.10000001}
+  m_AnchoredPosition: {x: -0.0000000018626451, y: 0.01}
+  m_SizeDelta: {x: -0.1, y: -0.099999994}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224000011138031872
 RectTransform:

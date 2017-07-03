@@ -76,6 +76,8 @@ namespace VRKeys {
 
 		public GameObject rightMallet;
 
+		public Key[] extraKeys;
+
 		private string[] row1 = { "`", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=" };
 
 		private string[] row1Shift = { "~", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "+" };
@@ -129,6 +131,8 @@ namespace VRKeys {
 		private LetterKey[] keys;
 
 		private bool shifted = false;
+
+		private bool disabled = false;
 
 		// Use this for initialization
 		void Start () {
@@ -214,6 +218,40 @@ namespace VRKeys {
 			}
 
 			return shifted;
+		}
+
+		/// <summary>
+		/// Disable keyboard input.
+		/// </summary>
+		public void Disable () {
+			disabled = true;
+			leftPressing = false;
+			rightPressing = false;
+
+			foreach (LetterKey key in keys) {
+				key.Disable ();
+			}
+
+			foreach (Key key in extraKeys) {
+				key.Disable ();
+			}
+		}
+
+		/// <summary>
+		/// Re-enable keyboard input.
+		/// </summary>
+		public void Enable () {
+			disabled = false;
+			leftPressing = false;
+			rightPressing = false;
+
+			foreach (LetterKey key in keys) {
+				key.Enable ();
+			}
+
+			foreach (Key key in extraKeys) {
+				key.Enable ();
+			}
 		}
 
 		/// <summary>

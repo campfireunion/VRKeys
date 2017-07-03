@@ -17,8 +17,16 @@ namespace VRKeys {
 	/// </summary>
 	public class ShiftKey : Key {
 
+		bool shifted = false;
+
 		public override void HandleTriggerEnter (Collider other) {
-			bool shifted = keyboard.ToggleShift ();
+			shifted = keyboard.ToggleShift ();
+
+			meshRenderer.material = shifted ? activeMat : inactiveMat;
+		}
+
+		public override void Enable () {
+			base.Enable ();
 
 			meshRenderer.material = shifted ? activeMat : inactiveMat;
 		}

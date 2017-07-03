@@ -26,6 +26,8 @@ namespace VRKeys {
 
 		public Material activeMat;
 
+		public Material disabledMat;
+
 		public Vector3 defaultPosition;
 
 		public Vector3 pressedPosition;
@@ -37,6 +39,8 @@ namespace VRKeys {
 		public bool autoInit = false;
 
 		private bool isPressing = false;
+
+		private bool disabled = false;
 
 		protected MeshRenderer meshRenderer;
 
@@ -63,12 +67,13 @@ namespace VRKeys {
 
 		private void OnEnable () {
 			isPressing = false;
+			disabled = false;
 			transform.localPosition = defaultPosition;
 			meshRenderer.material = inactiveMat;
 		}
 
 		public void OnTriggerEnter (Collider other) {
-			if (isPressing) {
+			if (isPressing || disabled) {
 				return;
 			}
 
@@ -141,6 +146,22 @@ namespace VRKeys {
 
 			yield return new WaitForSeconds (seconds);
 
+			meshRenderer.material = inactiveMat;
+		}
+
+		/// <summary>
+		/// Disable the key.
+		/// </summary>
+		public virtual void Disable () {
+			disabled = true;
+			meshRenderer.material = disabledMat;
+		}
+
+		/// <summary>
+		/// Re-enable a disabled key.
+		/// </summary>
+		public virtual void Enable () {
+			disabled = false;
 			meshRenderer.material = inactiveMat;
 		}
 	}
