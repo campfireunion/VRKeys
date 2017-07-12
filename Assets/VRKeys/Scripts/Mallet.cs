@@ -27,10 +27,27 @@ namespace VRKeys {
 
 		public MalletHand hand;
 
+		public bool isMovingDownward {
+			get { return _isMovingDownward; }
+			private set { _isMovingDownward = value; }
+		}
+
+		private bool _isMovingDownward = false;
+
 		private AudioSource audioSource;
+
+		private Vector3 prevPos = Vector3.zero;
 
 		private void Awake () {
 			audioSource = GetComponent<AudioSource> ();
+		}
+
+		private void FixedUpdate () {
+			Vector3 curVel = (transform.position - prevPos) / Time.deltaTime;
+
+			isMovingDownward = (curVel.y <= 0f);
+
+			prevPos = transform.position;
 		}
 
 		/// <summary>

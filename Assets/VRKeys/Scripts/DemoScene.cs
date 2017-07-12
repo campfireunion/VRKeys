@@ -27,6 +27,14 @@ namespace VRKeys {
 		private void OnEnable () {
 			keyboard.placeholderMessage = "Please enter your email address";
 			keyboard.gameObject.SetActive (true);
+
+			keyboard.OnUpdate.AddListener (HandleUpdate);
+			keyboard.OnSubmit.AddListener (HandleSubmit);
+		}
+
+		private void OnDisable () {
+			keyboard.OnUpdate.RemoveListener (HandleUpdate);
+			keyboard.OnSubmit.RemoveListener (HandleSubmit);
 		}
 
 		/// <summary>

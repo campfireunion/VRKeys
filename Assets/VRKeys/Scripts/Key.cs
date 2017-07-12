@@ -88,6 +88,12 @@ namespace VRKeys {
 
 			Mallet mallet = other.gameObject.GetComponent<Mallet> ();
 			if (mallet != null) {
+				Debug.Log ("Mallet hit");
+				if (! mallet.isMovingDownward) {
+					Debug.Log ("Not moving down");
+					return;
+				}
+
 				if (mallet.hand == Mallet.MalletHand.Left && keyboard.leftPressing) {
 					return;
 				} else if (mallet.hand == Mallet.MalletHand.Right && keyboard.rightPressing) {
@@ -163,7 +169,10 @@ namespace VRKeys {
 		/// </summary>
 		public virtual void Disable () {
 			disabled = true;
-			meshRenderer.material = disabledMat;
+
+			if (meshRenderer != null) {
+				meshRenderer.material = disabledMat;
+			}
 		}
 
 		/// <summary>
@@ -171,7 +180,10 @@ namespace VRKeys {
 		/// </summary>
 		public virtual void Enable () {
 			disabled = false;
-			meshRenderer.material = inactiveMat;
+
+			if (meshRenderer != null) {
+				meshRenderer.material = inactiveMat;
+			}
 		}
 	}
 }

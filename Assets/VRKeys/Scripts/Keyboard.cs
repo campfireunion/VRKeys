@@ -78,6 +78,8 @@ namespace VRKeys {
 
 		public GameObject keyboardWrapper;
 
+		public ShiftKey shiftKey;
+
 		public Key[] extraKeys;
 
 		private string[] row1 = { "`", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=" };
@@ -230,6 +232,10 @@ namespace VRKeys {
 			PlaceholderVisibility ();
 
 			OnUpdate.Invoke (text);
+
+			if (shifted && character != "" && character != " ") {
+				StartCoroutine (DelayToggleShift ());
+			}
 		}
 
 		/// <summary>
@@ -246,7 +252,15 @@ namespace VRKeys {
 				key.shifted = shifted;
 			}
 
+			shiftKey.Toggle (shifted);
+
 			return shifted;
+		}
+
+		IEnumerator DelayToggleShift () {
+			yield return new WaitForSeconds (0.1f);
+
+			ToggleShift ();
 		}
 
 		/// <summary>
@@ -257,8 +271,12 @@ namespace VRKeys {
 			leftPressing = false;
 			rightPressing = false;
 
-			foreach (LetterKey key in keys) {
-				key.Disable ();
+			if (keys != null) {
+				foreach (LetterKey key in keys) {
+					if (key != null) {
+						key.Disable ();
+					}
+				}
 			}
 
 			foreach (Key key in extraKeys) {
@@ -274,8 +292,12 @@ namespace VRKeys {
 			leftPressing = false;
 			rightPressing = false;
 
-			foreach (LetterKey key in keys) {
-				key.Enable ();
+			if (keys != null) {
+				foreach (LetterKey key in keys) {
+					if (key != null) {
+						key.Enable ();
+					}
+				}
 			}
 
 			foreach (Key key in extraKeys) {
@@ -309,6 +331,8 @@ namespace VRKeys {
 		/// </summary>
 		/// <param name="newSize">New size.</param>
 		public void Resize (KeyboardSize newSize) {
+			Disable ();
+
 			PlayerPrefs.SetInt ("vrkeys:size", (int) newSize);
 			size = newSize;
 
@@ -319,6 +343,14 @@ namespace VRKeys {
 				}
 				info.key.SetActiveSize (size);
 			}
+
+			StartCoroutine (DelayEnableAfterResize ());
+		}
+
+		IEnumerator DelayEnableAfterResize () {
+			yield return new WaitForSeconds (0.3f);
+
+			Enable ();
 		}
 
 		/// <summary>
