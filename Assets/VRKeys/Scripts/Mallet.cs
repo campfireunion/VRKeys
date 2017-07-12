@@ -43,7 +43,7 @@ namespace VRKeys {
 		}
 
 		private void FixedUpdate () {
-			Vector3 curVel = (transform.position - prevPos) / Time.deltaTime;
+			Vector3 curVel = (transform.position - prevPos) / Time.fixedDeltaTime;
 
 			isMovingDownward = (curVel.y <= 0f);
 

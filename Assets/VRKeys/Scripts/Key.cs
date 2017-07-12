@@ -88,9 +88,7 @@ namespace VRKeys {
 
 			Mallet mallet = other.gameObject.GetComponent<Mallet> ();
 			if (mallet != null) {
-				Debug.Log ("Mallet hit");
 				if (! mallet.isMovingDownward) {
-					Debug.Log ("Not moving down");
 					return;
 				}
 
