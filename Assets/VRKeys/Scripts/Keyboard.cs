@@ -30,7 +30,7 @@ namespace VRKeys {
 
 		public Vector3 positionRelativeToUser = new Vector3 (0f, 1.35f, 2f);
 
-		[Space (10)]
+		[Space (15)]
 
 		public TextMeshProUGUI placeholder;
 
@@ -50,13 +50,13 @@ namespace VRKeys {
 
 		public TextMeshProUGUI successMessage;
 
-		[Space (10)]
+		[Space (15)]
 
 		public Color displayTextColor = Color.black;
 
 		public Color caretColor = Color.gray;
 
-		[Space (10)]
+		[Space (15)]
 
 		public GameObject keyPrefab;
 
@@ -66,11 +66,13 @@ namespace VRKeys {
 
 		public float keyHeight = 0.16f;
 
-		[Space (10)]
+		[Space (15)]
 
 		public string text = "";
 
-		[Space (10)]
+		[Space (15)]
+
+		public GameObject canvas;
 
 		public GameObject leftMallet;
 
@@ -98,7 +100,7 @@ namespace VRKeys {
 
 		private string[] row4Shift = { "Z", "X", "C", "V", "B", "N", "M", "<", ">", "/" };
 
-		[Space (10)]
+		[Space (15)]
 
 		public float row1Offset = 0.16f;
 
@@ -127,11 +129,15 @@ namespace VRKeys {
 		[SerializeField]
 		public SizeInfo[] sizes;
 
-		[Space (10)]
+		[Space (15)]
 
 		public bool leftPressing = false;
 
 		public bool rightPressing = false;
+
+		public bool initialized = false;
+
+		public bool disabled = true;
 
 		[Serializable]
 		public class KeyboardUpdateEvent : UnityEvent<string> { }
@@ -139,7 +145,7 @@ namespace VRKeys {
 		[Serializable]
 		public class KeyboardSubmitEvent : UnityEvent<string> { }
 
-		[Space (10)]
+		[Space (15)]
 
 		/// <summary>
 		/// Listen for events whenever the text changes.
@@ -155,16 +161,17 @@ namespace VRKeys {
 
 		private bool shifted = false;
 
-		private bool disabled = false;
+		private bool inputDisabled = false;
 
 		private KeyboardSize size;
 
 		// Use this for initialization
-		void Start () {
-			StartCoroutine (SetupKeys ());
-		}
+		IEnumerator Start () {
+			canvas.SetActive (false);
+			keysParent.gameObject.SetActive (false);
 
-		private void OnEnable () {
+			yield return StartCoroutine (SetupKeys ());
+
 			validationNotice.SetActive (false);
 			infoNotice.SetActive (false);
 			successNotice.SetActive (false);
@@ -178,7 +185,7 @@ namespace VRKeys {
 
 			Resize (defaultSize);
 
-			StartCoroutine (PositionAndAttachMallets ());
+			initialized = true;
 		}
 
 		IEnumerator PositionAndAttachMallets () {
@@ -198,7 +205,7 @@ namespace VRKeys {
 			rightMallet.SetActive (true);
 		}
 
-		private void OnDisable () {
+		private void DetachMallets () {
 			if (leftMallet != null) {
 				leftMallet.SetActive (false);
 			}
@@ -206,6 +213,63 @@ namespace VRKeys {
 			if (rightMallet != null) {
 				rightMallet.SetActive (false);
 			}
+		}
+
+		/// <summary>
+		/// Make sure mallets don't stay attached if VRKeys is disabled without
+		/// calling Disable().
+		/// </summary>
+		private void OnDisable () {
+			Disable ();
+		}
+
+		/// <summary>
+		/// Enable the keyboard.
+		/// </summary>
+		public void Enable () {
+			if (! initialized) {
+				// Make sure we're initialized first.
+				StartCoroutine (EnableWhenInitialized ());
+				return;
+			}
+
+			disabled = false;
+
+			if (canvas != null) {
+				canvas.SetActive (true);
+			}
+
+			if (keysParent != null) {
+				Debug.Log ("Enabling keysParent");
+				keysParent.gameObject.SetActive (true);
+			}
+
+			EnableInput ();
+
+			StartCoroutine (PositionAndAttachMallets ());
+		}
+
+		IEnumerator EnableWhenInitialized () {
+			yield return new WaitUntil (() => initialized);
+
+			Enable ();
+		}
+
+		/// <summary>
+		/// Disable the keyboard.
+		/// </summary>
+		public void Disable () {
+			disabled = true;
+
+			if (canvas != null) {
+				canvas.SetActive (false);
+			}
+
+			if (keysParent != null) {
+				keysParent.gameObject.SetActive (false);
+			}
+
+			DetachMallets ();
 		}
 
 		/// <summary>
@@ -266,8 +330,8 @@ namespace VRKeys {
 		/// <summary>
 		/// Disable keyboard input.
 		/// </summary>
-		public void Disable () {
-			disabled = true;
+		public void DisableInput () {
+			inputDisabled = true;
 			leftPressing = false;
 			rightPressing = false;
 
@@ -287,10 +351,12 @@ namespace VRKeys {
 		/// <summary>
 		/// Re-enable keyboard input.
 		/// </summary>
-		public void Enable () {
-			disabled = false;
+		public void EnableInput () {
+			inputDisabled = false;
 			leftPressing = false;
 			rightPressing = false;
+
+			StartCoroutine (PositionAndAttachMallets ());
 
 			if (keys != null) {
 				foreach (LetterKey key in keys) {
@@ -331,7 +397,7 @@ namespace VRKeys {
 		/// </summary>
 		/// <param name="newSize">New size.</param>
 		public void Resize (KeyboardSize newSize) {
-			Disable ();
+			DisableInput ();
 
 			PlayerPrefs.SetInt ("vrkeys:size", (int) newSize);
 			size = newSize;
@@ -344,13 +410,15 @@ namespace VRKeys {
 				info.key.SetActiveSize (size);
 			}
 
-			StartCoroutine (DelayEnableAfterResize ());
+			if (initialized && ! disabled) {
+				StartCoroutine (DelayEnableAfterResize ());
+			}
 		}
 
 		IEnumerator DelayEnableAfterResize () {
 			yield return new WaitForSeconds (0.3f);
 
-			Enable ();
+			EnableInput ();
 		}
 
 		/// <summary>

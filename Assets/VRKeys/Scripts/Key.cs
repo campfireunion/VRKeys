@@ -82,7 +82,7 @@ namespace VRKeys {
 		}
 
 		public void OnTriggerEnter (Collider other) {
-			if (isPressing || disabled) {
+			if (isPressing || disabled || keyboard.disabled || ! keyboard.initialized) {
 				return;
 			}
 
@@ -120,7 +120,7 @@ namespace VRKeys {
 
 			transform.localPosition = pressedPosition;
 
-			yield return new WaitForSeconds (0.15f);
+			yield return new WaitForSeconds (0.125f);
 
 			transform.localPosition = defaultPosition;
 			isPressing = false;
