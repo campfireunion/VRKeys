@@ -183,5 +183,13 @@ namespace VRKeys {
 				meshRenderer.material = inactiveMat;
 			}
 		}
+
+		/// <summary>
+		/// Update the key's label from a new language.
+		/// </summary>
+		/// <param name="translation">Translation object.</param>
+		public virtual void UpdateLanguage (Translation translation) {
+			// Override me!
+		}
 	}
 }

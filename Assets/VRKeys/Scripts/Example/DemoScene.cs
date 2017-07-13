@@ -26,8 +26,8 @@ namespace VRKeys {
 		/// but you can also use the inspector.
 		/// </summary>
 		private void OnEnable () {
-			keyboard.placeholderMessage = "Please enter your email address";
 			keyboard.Enable ();
+			keyboard.SetPlaceholderMessage ("Please enter your email address");
 
 			keyboard.OnUpdate.AddListener (HandleUpdate);
 			keyboard.OnSubmit.AddListener (HandleSubmit);
@@ -42,6 +42,8 @@ namespace VRKeys {
 
 		/// <summary>
 		/// Press space to show/hide the keyboard.
+		/// 
+		/// Press E for English keyboard, F for French keyboard.
 		/// </summary>
 		private void Update () {
 			if (Input.GetKeyDown (KeyCode.Space)) {
@@ -50,6 +52,16 @@ namespace VRKeys {
 				} else {
 					keyboard.Disable ();
 				}
+			}
+
+			if (keyboard.disabled) {
+				return;
+			}
+
+			if (Input.GetKeyDown (KeyCode.E)) {
+				keyboard.SetLanguage (Language.English);
+			} else if (Input.GetKeyDown (KeyCode.F)) {
+				keyboard.SetLanguage (Language.French);
 			}
 		}
 

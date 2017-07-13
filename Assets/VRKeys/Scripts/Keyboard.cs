@@ -30,6 +30,8 @@ namespace VRKeys {
 
 		public Vector3 positionRelativeToUser = new Vector3 (0f, 1.35f, 2f);
 
+		public Language language = Language.English;
+
 		[Space (15)]
 
 		public TextMeshProUGUI placeholder;
@@ -84,32 +86,6 @@ namespace VRKeys {
 
 		public Key[] extraKeys;
 
-		private string[] row1 = { "`", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=" };
-
-		private string[] row1Shift = { "~", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "+" };
-
-		private string[] row2 = { "q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "[", "]", "\\" };
-
-		private string[] row2Shift = { "Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "{", "}", "|" };
-
-		private string[] row3 = { "a", "s", "d", "f", "g", "h", "j", "k", "l", ";", "'" };
-
-		private string[] row3Shift = { "A", "S", "D", "F", "G", "H", "J", "K", "L", ":", "\"" };
-
-		private string[] row4 = { "z", "x", "c", "v", "b", "n", "m", ",", ".", "?" };
-
-		private string[] row4Shift = { "Z", "X", "C", "V", "B", "N", "M", "<", ">", "/" };
-
-		[Space (15)]
-
-		public float row1Offset = 0.16f;
-
-		public float row2Offset = 0.08f;
-
-		public float row3Offset = 0f;
-
-		public float row4Offset = -0.08f;
-
 		public enum KeyboardSize {
 			Small = 1,
 			Medium = 2,
@@ -123,6 +99,8 @@ namespace VRKeys {
 			public Vector3 scale;
 			public SizeKey key;
 		}
+
+		[Space (15)]
 
 		public KeyboardSize defaultSize = KeyboardSize.Medium;
 
@@ -161,16 +139,15 @@ namespace VRKeys {
 
 		private bool shifted = false;
 
-		private bool inputDisabled = false;
-
 		private KeyboardSize size;
 
-		// Use this for initialization
-		IEnumerator Start () {
-			canvas.SetActive (false);
-			keysParent.gameObject.SetActive (false);
+		private Translation translation;
 
-			yield return StartCoroutine (SetupKeys ());
+		/// <summary>
+		/// Initialization.
+		/// </summary>
+		IEnumerator Start () {
+			yield return StartCoroutine (DoSetLanguage (language));
 
 			validationNotice.SetActive (false);
 			infoNotice.SetActive (false);
@@ -240,7 +217,6 @@ namespace VRKeys {
 			}
 
 			if (keysParent != null) {
-				Debug.Log ("Enabling keysParent");
 				keysParent.gameObject.SetActive (true);
 			}
 
@@ -331,7 +307,6 @@ namespace VRKeys {
 		/// Disable keyboard input.
 		/// </summary>
 		public void DisableInput () {
-			inputDisabled = true;
 			leftPressing = false;
 			rightPressing = false;
 
@@ -352,7 +327,6 @@ namespace VRKeys {
 		/// Re-enable keyboard input.
 		/// </summary>
 		public void EnableInput () {
-			inputDisabled = false;
 			leftPressing = false;
 			rightPressing = false;
 
@@ -422,6 +396,51 @@ namespace VRKeys {
 		}
 
 		/// <summary>
+		/// Set the language of the keyboard.
+		/// </summary>
+		/// <param name="lang">New language.</param>
+		public void SetLanguage (Language lang) {
+			StartCoroutine (DoSetLanguage (lang));
+		}
+
+		IEnumerator DoSetLanguage (Language lang) {
+			language = lang;
+			translation = TranslationList.GetTranslation (language);
+
+			placeholderMessage = translation.placeholderMessage;
+
+			yield return StartCoroutine (SetupKeys ());
+
+			// Update extra keys
+			foreach (Key key in extraKeys) {
+				key.UpdateLanguage (translation);
+			}
+
+			// Update size keys
+			foreach (SizeInfo info in sizes) {
+				info.key.UpdateLanguage (translation);
+			}
+		}
+
+		/// <summary>
+		/// Set a custom placeholder message.
+		/// </summary>
+		/// <param name="msg">Message.</param>
+		public void SetPlaceholderMessage (string msg) {
+			StartCoroutine (DoSetPlaceholderMessage (msg));
+		}
+
+		IEnumerator DoSetPlaceholderMessage (string msg) {
+			if (!initialized) {
+				yield return new WaitUntil (() => initialized);
+			}
+
+			placeholder.text = placeholderMessage = msg;
+
+			yield break;
+		}
+
+		/// <summary>
 		/// Show the specified validation notice.
 		/// </summary>
 		/// <param name="message">Message to show.</param>
@@ -479,21 +498,36 @@ namespace VRKeys {
 		/// Setup the keys.
 		/// </summary>
 		IEnumerator SetupKeys () {
-			keys = new LetterKey[row1.Length + row2.Length + row3.Length + row4.Length];
+			bool activeState = canvas.activeSelf;
+
+			// Hide everything before setting up the keys
+			canvas.SetActive (false);
+			keysParent.gameObject.SetActive (false);
+
+			// Remove previous keys
+			if (keys != null) {
+				foreach (Key key in keys) {
+					if (key != null) {
+						Destroy (key.gameObject);
+					}
+				}
+			}
+
+			keys = new LetterKey[translation.TotalKeys ()];
 			int keyCount = 0;
 
 			// Numbers row
-			for (int i = 0; i < row1.Length; i++) {
+			for (int i = 0; i < translation.row1Keys.Length; i++) {
 				GameObject obj = (GameObject) Instantiate (keyPrefab, keysParent);
-				obj.transform.localPosition += (Vector3.right * ((keyWidth * i) - row1Offset));
+				obj.transform.localPosition += (Vector3.right * ((keyWidth * i) - translation.row1Offset));
 
 				LetterKey key = obj.GetComponent<LetterKey> ();
-				key.character = row1[i];
-				key.shiftedChar = row1Shift[i];
+				key.character = translation.row1Keys[i];
+				key.shiftedChar = translation.row1Shift[i];
 				key.shifted = false;
 				key.Init (obj.transform.localPosition);
 
-				obj.name = "Key: " + row1[i];
+				obj.name = "Key: " + translation.row1Keys[i];
 				obj.SetActive (true);
 
 				keys[keyCount] = key;
@@ -503,18 +537,18 @@ namespace VRKeys {
 			}
 
 			// QWERTY row
-			for (int i = 0; i < row2.Length; i++) {
+			for (int i = 0; i < translation.row2Keys.Length; i++) {
 				GameObject obj = (GameObject) Instantiate (keyPrefab, keysParent);
-				obj.transform.localPosition += (Vector3.right * ((keyWidth * i) - row2Offset));
+				obj.transform.localPosition += (Vector3.right * ((keyWidth * i) - translation.row2Offset));
 				obj.transform.localPosition += (Vector3.back * keyHeight * 1);
 
 				LetterKey key = obj.GetComponent<LetterKey> ();
-				key.character = row2[i];
-				key.shiftedChar = row2Shift[i];
+				key.character = translation.row2Keys[i];
+				key.shiftedChar = translation.row2Shift[i];
 				key.shifted = false;
 				key.Init (obj.transform.localPosition);
 
-				obj.name = "Key: " + row2[i];
+				obj.name = "Key: " + translation.row2Keys[i];
 				obj.SetActive (true);
 
 				keys[keyCount] = key;
@@ -524,18 +558,18 @@ namespace VRKeys {
 			}
 
 			// ASDF row
-			for (int i = 0; i < row3.Length; i++) {
+			for (int i = 0; i < translation.row3Keys.Length; i++) {
 				GameObject obj = (GameObject) Instantiate (keyPrefab, keysParent);
-				obj.transform.localPosition += (Vector3.right * ((keyWidth * i) - row3Offset));
+				obj.transform.localPosition += (Vector3.right * ((keyWidth * i) - translation.row3Offset));
 				obj.transform.localPosition += (Vector3.back * keyHeight * 2);
 
 				LetterKey key = obj.GetComponent<LetterKey> ();
-				key.character = row3[i];
-				key.shiftedChar = row3Shift[i];
+				key.character = translation.row3Keys[i];
+				key.shiftedChar = translation.row3Shift[i];
 				key.shifted = false;
 				key.Init (obj.transform.localPosition);
 
-				obj.name = "Key: " + row3[i];
+				obj.name = "Key: " + translation.row3Keys[i];
 				obj.SetActive (true);
 
 				keys[keyCount] = key;
@@ -545,18 +579,18 @@ namespace VRKeys {
 			}
 
 			// ZXCV row
-			for (int i = 0; i < row4.Length; i++) {
+			for (int i = 0; i < translation.row4Keys.Length; i++) {
 				GameObject obj = (GameObject) Instantiate (keyPrefab, keysParent);
-				obj.transform.localPosition += (Vector3.right * ((keyWidth * i) - row4Offset));
+				obj.transform.localPosition += (Vector3.right * ((keyWidth * i) - translation.row4Offset));
 				obj.transform.localPosition += (Vector3.back * keyHeight * 3);
 
 				LetterKey key = obj.GetComponent<LetterKey> ();
-				key.character = row4[i];
-				key.shiftedChar = row4Shift[i];
+				key.character = translation.row4Keys[i];
+				key.shiftedChar = translation.row4Shift[i];
 				key.shifted = false;
 				key.Init (obj.transform.localPosition);
 
-				obj.name = "Key: " + row4[i];
+				obj.name = "Key: " + translation.row4Keys[i];
 				obj.SetActive (true);
 
 				keys[keyCount] = key;
@@ -564,6 +598,10 @@ namespace VRKeys {
 
 				yield return null;
 			}
+
+			// Reset visibility of canvas and keyboard
+			canvas.SetActive (activeState);
+			keysParent.gameObject.SetActive (activeState);
 		}
 
 		/// <summary>

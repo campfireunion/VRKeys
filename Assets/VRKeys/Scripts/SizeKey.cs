@@ -42,5 +42,21 @@ namespace VRKeys {
 				meshRenderer.material = inactiveMat;
 			}
 		}
+
+		public override void UpdateLanguage (Translation translation) {
+			switch (size) {
+				case Keyboard.KeyboardSize.Small:
+					label.text = translation.smallButtonLabel;
+					break;
+
+				case Keyboard.KeyboardSize.Medium:
+					label.text = translation.mediumButtonLabel;
+					break;
+
+				case Keyboard.KeyboardSize.Large:
+					label.text = translation.largeButtonLabel;
+					break;
+			}
+		}
 	}
 }

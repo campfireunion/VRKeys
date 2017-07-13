@@ -20,5 +20,9 @@ namespace VRKeys {
 		public override void HandleTriggerEnter (Collider other) {
 			keyboard.Submit ();
 		}
+
+		public override void UpdateLanguage (Translation translation) {
+			label.text = translation.enterButtonLabel;
+		}
 	}
 }
