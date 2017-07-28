@@ -12,7 +12,7 @@ VRKeys is a simple keyboard interface for single-line text input that integrates
 * Special @ and .com keys
 * Easy input validation, info, and confirmation messages
 * Ability to enable/disable input while validating or submitting
-* Alternate keyboards for i18n (AZERTY layout for French included)
+* Alternate keyboard layouts for i18n (Dvorak & Azerty for French included)
 * Demo scene shows how to integrate into your own projects
 
 ### Requirements
