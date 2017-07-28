@@ -43,7 +43,7 @@ namespace VRKeys {
 		/// <summary>
 		/// Press space to show/hide the keyboard.
 		/// 
-		/// Press E for English keyboard, F for French keyboard.
+		/// Press Q for Qwerty keyboard, D for Dvorak keyboard, and F for French keyboard.
 		/// </summary>
 		private void Update () {
 			if (Input.GetKeyDown (KeyCode.Space)) {
@@ -58,10 +58,12 @@ namespace VRKeys {
 				return;
 			}
 
-			if (Input.GetKeyDown (KeyCode.E)) {
-				keyboard.SetLanguage (Language.English);
+			if (Input.GetKeyDown (KeyCode.Q)) {
+				keyboard.SetLayout (KeyboardLayout.Qwerty);
 			} else if (Input.GetKeyDown (KeyCode.F)) {
-				keyboard.SetLanguage (Language.French);
+				keyboard.SetLayout (KeyboardLayout.French);
+			} else if (Input.GetKeyDown (KeyCode.D)) {
+				keyboard.SetLayout (KeyboardLayout.Dvorak);
 			}
 		}
 

@@ -188,7 +188,7 @@ namespace VRKeys {
 		/// Update the key's label from a new language.
 		/// </summary>
 		/// <param name="translation">Translation object.</param>
-		public virtual void UpdateLanguage (Translation translation) {
+		public virtual void UpdateLayout (Layout translation) {
 			// Override me!
 		}
 	}

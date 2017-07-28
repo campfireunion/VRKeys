@@ -43,7 +43,7 @@ namespace VRKeys {
 			}
 		}
 
-		public override void UpdateLanguage (Translation translation) {
+		public override void UpdateLayout (Layout translation) {
 			switch (size) {
 				case Keyboard.KeyboardSize.Small:
 					label.text = translation.smallButtonLabel;

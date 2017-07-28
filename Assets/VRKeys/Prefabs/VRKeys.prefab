@@ -3446,7 +3446,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   positionRelativeToUser: {x: 0, y: 1.35, z: 1.75}
-  language: 0
+  keyboardLayout: 0
   placeholder: {fileID: 114000013633238574}
   placeholderMessage: Tap the keys to begin typing
   displayText: {fileID: 114000011935164620}

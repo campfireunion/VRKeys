@@ -35,7 +35,7 @@ namespace VRKeys {
 			meshRenderer.material = shifted ? activeMat : inactiveMat;
 		}
 
-		public override void UpdateLanguage (Translation translation) {
+		public override void UpdateLayout (Layout translation) {
 			label.text = translation.shiftButtonLabel;
 		}
 	}

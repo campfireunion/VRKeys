@@ -30,7 +30,7 @@ namespace VRKeys {
 
 		public Vector3 positionRelativeToUser = new Vector3 (0f, 1.35f, 2f);
 
-		public Language language = Language.English;
+		public KeyboardLayout keyboardLayout = KeyboardLayout.Qwerty;
 
 		[Space (15)]
 
@@ -141,13 +141,13 @@ namespace VRKeys {
 
 		private KeyboardSize size;
 
-		private Translation translation;
+		private Layout layout;
 
 		/// <summary>
 		/// Initialization.
 		/// </summary>
 		IEnumerator Start () {
-			yield return StartCoroutine (DoSetLanguage (language));
+			yield return StartCoroutine (DoSetLanguage (keyboardLayout));
 
 			validationNotice.SetActive (false);
 			infoNotice.SetActive (false);
@@ -398,27 +398,27 @@ namespace VRKeys {
 		/// <summary>
 		/// Set the language of the keyboard.
 		/// </summary>
-		/// <param name="lang">New language.</param>
-		public void SetLanguage (Language lang) {
-			StartCoroutine (DoSetLanguage (lang));
+		/// <param name="layout">New language.</param>
+		public void SetLayout (KeyboardLayout layout) {
+			StartCoroutine (DoSetLanguage (layout));
 		}
 
-		IEnumerator DoSetLanguage (Language lang) {
-			language = lang;
-			translation = TranslationList.GetTranslation (language);
+		IEnumerator DoSetLanguage (KeyboardLayout lang) {
+			keyboardLayout = lang;
+			layout = LayoutList.GetLayout (keyboardLayout);
 
-			placeholderMessage = translation.placeholderMessage;
+			placeholderMessage = layout.placeholderMessage;
 
 			yield return StartCoroutine (SetupKeys ());
 
 			// Update extra keys
 			foreach (Key key in extraKeys) {
-				key.UpdateLanguage (translation);
+				key.UpdateLayout (layout);
 			}
 
 			// Update size keys
 			foreach (SizeInfo info in sizes) {
-				info.key.UpdateLanguage (translation);
+				info.key.UpdateLayout (layout);
 			}
 		}
 
@@ -513,21 +513,21 @@ namespace VRKeys {
 				}
 			}
 
-			keys = new LetterKey[translation.TotalKeys ()];
+			keys = new LetterKey[layout.TotalKeys ()];
 			int keyCount = 0;
 
 			// Numbers row
-			for (int i = 0; i < translation.row1Keys.Length; i++) {
+			for (int i = 0; i < layout.row1Keys.Length; i++) {
 				GameObject obj = (GameObject) Instantiate (keyPrefab, keysParent);
-				obj.transform.localPosition += (Vector3.right * ((keyWidth * i) - translation.row1Offset));
+				obj.transform.localPosition += (Vector3.right * ((keyWidth * i) - layout.row1Offset));
 
 				LetterKey key = obj.GetComponent<LetterKey> ();
-				key.character = translation.row1Keys[i];
-				key.shiftedChar = translation.row1Shift[i];
+				key.character = layout.row1Keys[i];
+				key.shiftedChar = layout.row1Shift[i];
 				key.shifted = false;
 				key.Init (obj.transform.localPosition);
 
-				obj.name = "Key: " + translation.row1Keys[i];
+				obj.name = "Key: " + layout.row1Keys[i];
 				obj.SetActive (true);
 
 				keys[keyCount] = key;
@@ -537,18 +537,18 @@ namespace VRKeys {
 			}
 
 			// QWERTY row
-			for (int i = 0; i < translation.row2Keys.Length; i++) {
+			for (int i = 0; i < layout.row2Keys.Length; i++) {
 				GameObject obj = (GameObject) Instantiate (keyPrefab, keysParent);
-				obj.transform.localPosition += (Vector3.right * ((keyWidth * i) - translation.row2Offset));
+				obj.transform.localPosition += (Vector3.right * ((keyWidth * i) - layout.row2Offset));
 				obj.transform.localPosition += (Vector3.back * keyHeight * 1);
 
 				LetterKey key = obj.GetComponent<LetterKey> ();
-				key.character = translation.row2Keys[i];
-				key.shiftedChar = translation.row2Shift[i];
+				key.character = layout.row2Keys[i];
+				key.shiftedChar = layout.row2Shift[i];
 				key.shifted = false;
 				key.Init (obj.transform.localPosition);
 
-				obj.name = "Key: " + translation.row2Keys[i];
+				obj.name = "Key: " + layout.row2Keys[i];
 				obj.SetActive (true);
 
 				keys[keyCount] = key;
@@ -558,18 +558,18 @@ namespace VRKeys {
 			}
 
 			// ASDF row
-			for (int i = 0; i < translation.row3Keys.Length; i++) {
+			for (int i = 0; i < layout.row3Keys.Length; i++) {
 				GameObject obj = (GameObject) Instantiate (keyPrefab, keysParent);
-				obj.transform.localPosition += (Vector3.right * ((keyWidth * i) - translation.row3Offset));
+				obj.transform.localPosition += (Vector3.right * ((keyWidth * i) - layout.row3Offset));
 				obj.transform.localPosition += (Vector3.back * keyHeight * 2);
 
 				LetterKey key = obj.GetComponent<LetterKey> ();
-				key.character = translation.row3Keys[i];
-				key.shiftedChar = translation.row3Shift[i];
+				key.character = layout.row3Keys[i];
+				key.shiftedChar = layout.row3Shift[i];
 				key.shifted = false;
 				key.Init (obj.transform.localPosition);
 
-				obj.name = "Key: " + translation.row3Keys[i];
+				obj.name = "Key: " + layout.row3Keys[i];
 				obj.SetActive (true);
 
 				keys[keyCount] = key;
@@ -579,18 +579,18 @@ namespace VRKeys {
 			}
 
 			// ZXCV row
-			for (int i = 0; i < translation.row4Keys.Length; i++) {
+			for (int i = 0; i < layout.row4Keys.Length; i++) {
 				GameObject obj = (GameObject) Instantiate (keyPrefab, keysParent);
-				obj.transform.localPosition += (Vector3.right * ((keyWidth * i) - translation.row4Offset));
+				obj.transform.localPosition += (Vector3.right * ((keyWidth * i) - layout.row4Offset));
 				obj.transform.localPosition += (Vector3.back * keyHeight * 3);
 
 				LetterKey key = obj.GetComponent<LetterKey> ();
-				key.character = translation.row4Keys[i];
-				key.shiftedChar = translation.row4Shift[i];
+				key.character = layout.row4Keys[i];
+				key.shiftedChar = layout.row4Shift[i];
 				key.shifted = false;
 				key.Init (obj.transform.localPosition);
 
-				obj.name = "Key: " + translation.row4Keys[i];
+				obj.name = "Key: " + layout.row4Keys[i];
 				obj.SetActive (true);
 
 				keys[keyCount] = key;

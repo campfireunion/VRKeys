@@ -23,7 +23,7 @@ namespace VRKeys {
 			ActivateFor (0.3f);
 		}
 
-		public override void UpdateLanguage (Translation translation) {
+		public override void UpdateLayout (Layout translation) {
 			label.text = translation.backspaceButtonLabel;
 		}
 	}

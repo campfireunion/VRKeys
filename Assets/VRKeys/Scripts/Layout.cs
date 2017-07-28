@@ -13,11 +13,11 @@ namespace VRKeys {
 	/// Base class for keyboard layouts to inherit from in order to support
 	/// additional languages.
 	/// 
-	/// See the VRKeys/Scripts/Translations folder for example translations.
-	/// To add a translation, you will need to register it in the Languages.cs
+	/// See the VRKeys/Scripts/Layouts folder for example layouts.
+	/// To add a translation, you will need to register it in the Layouts.cs
 	/// class too.
 	/// </summary>
-	public class Translation {
+	public class Layout {
 
 		public string placeholderMessage = "Tap the keys to begin typing";
 

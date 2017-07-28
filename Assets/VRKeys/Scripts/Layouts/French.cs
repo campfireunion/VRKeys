@@ -8,12 +8,12 @@
  * Website: https://www.campfireunion.com
  */
 
-namespace VRKeys.Translations {
+namespace VRKeys.Layouts {
 	/// <summary>
 	/// French language keyboard (AZERTY). Note that some liberties had to be taken
 	/// because of the lack of shift + ctrl combination and diacritic key.
 	/// </summary>
-	public class French : Translation {
+	public class French : Layout {
 
 		public French () {
 			placeholderMessage = "Appuyez sur les touches pour commencer à taper";
