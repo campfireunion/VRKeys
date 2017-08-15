@@ -13,7 +13,6 @@ using UnityEngine.Events;
 using System;
 using System.Collections;
 using TMPro;
-using NewtonVR;
 
 namespace VRKeys {
 	/// <summary>
@@ -27,6 +26,12 @@ namespace VRKeys {
 	/// you have finished validating the submitted text.
 	/// </summary>
 	public class Keyboard : MonoBehaviour {
+
+		public GameObject playerSpace;
+
+		public GameObject leftHand;
+
+		public GameObject rightHand;
 
 		public Vector3 positionRelativeToUser = new Vector3 (0f, 1.35f, 2f);
 
@@ -165,18 +170,16 @@ namespace VRKeys {
 			initialized = true;
 		}
 
-		IEnumerator PositionAndAttachMallets () {
-			yield return new WaitUntil (() => NVRPlayer.Instances.Count > 0);
-
-			transform.SetParent (NVRPlayer.Instance.gameObject.transform, false);
+		void PositionAndAttachMallets () {
+			transform.SetParent (playerSpace.transform, false);
 			transform.localPosition = positionRelativeToUser;
 			
-			leftMallet.transform.SetParent (NVRPlayer.Instance.LeftHand.transform);
+			leftMallet.transform.SetParent (leftHand.transform);
 			leftMallet.transform.localPosition = Vector3.zero;
 			leftMallet.transform.localRotation = Quaternion.Euler (90f, 0f, 0f);
 			leftMallet.SetActive (true);
 
-			rightMallet.transform.SetParent (NVRPlayer.Instance.RightHand.transform);
+			rightMallet.transform.SetParent (rightHand.transform);
 			rightMallet.transform.localPosition = Vector3.zero;
 			rightMallet.transform.localRotation = Quaternion.Euler (90f, 0f, 0f);
 			rightMallet.SetActive (true);
@@ -222,7 +225,7 @@ namespace VRKeys {
 
 			EnableInput ();
 
-			StartCoroutine (PositionAndAttachMallets ());
+			PositionAndAttachMallets ();
 		}
 
 		IEnumerator EnableWhenInitialized () {
@@ -330,7 +333,7 @@ namespace VRKeys {
 			leftPressing = false;
 			rightPressing = false;
 
-			StartCoroutine (PositionAndAttachMallets ());
+			PositionAndAttachMallets ();
 
 			if (keys != null) {
 				foreach (LetterKey key in keys) {
