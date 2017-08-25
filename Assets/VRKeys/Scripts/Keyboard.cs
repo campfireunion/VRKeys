@@ -1,8 +1,8 @@
 ﻿/**
  * Copyright (c) 2017 The Campfire Union Inc - All Rights Reserved.
  *
- * Unauthorized copying of this file, via any medium, is strictly prohibited.
- * This source code is proprietary and confidential.
+ * Licensed under the MIT license. See LICENSE file in the project root for
+ * full license information.
  *
  * Email:   info@campfireunion.com
  * Website: https://www.campfireunion.com
@@ -15,18 +15,18 @@ using System.Collections;
 using TMPro;
 
 namespace VRKeys {
+
 	/// <summary>
 	/// Keyboard input system for use with NewtonVR. To use, drop the VRKeys prefab
 	/// into your scene and activate as needed. Listen for OnUpdate and OnSubmit events,
 	/// and set the text via SetText(string).
-	/// 
+	///
 	/// Input validation can be done during OnUpdate and OnSubmit events by calling
 	/// ShowValidationMessage(msg) and HideValidationMessage(). The keyboard does not
 	/// automatically hide OnSubmit, but rather you should call SetActive(false) when
 	/// you have finished validating the submitted text.
 	/// </summary>
 	public class Keyboard : MonoBehaviour {
-
 		public GameObject playerSpace;
 
 		public GameObject leftHand;
@@ -38,7 +38,6 @@ namespace VRKeys {
 		public KeyboardLayout keyboardLayout = KeyboardLayout.Qwerty;
 
 		[Space (15)]
-
 		public TextMeshProUGUI placeholder;
 
 		public string placeholderMessage = "Tap the keys to begin typing";
@@ -58,13 +57,11 @@ namespace VRKeys {
 		public TextMeshProUGUI successMessage;
 
 		[Space (15)]
-
 		public Color displayTextColor = Color.black;
 
 		public Color caretColor = Color.gray;
 
 		[Space (15)]
-
 		public GameObject keyPrefab;
 
 		public Transform keysParent;
@@ -74,11 +71,9 @@ namespace VRKeys {
 		public float keyHeight = 0.16f;
 
 		[Space (15)]
-
 		public string text = "";
 
 		[Space (15)]
-
 		public GameObject canvas;
 
 		public GameObject leftMallet;
@@ -106,14 +101,12 @@ namespace VRKeys {
 		}
 
 		[Space (15)]
-
 		public KeyboardSize defaultSize = KeyboardSize.Medium;
 
 		[SerializeField]
 		public SizeInfo[] sizes;
 
 		[Space (15)]
-
 		public bool leftPressing = false;
 
 		public bool rightPressing = false;
@@ -151,7 +144,7 @@ namespace VRKeys {
 		/// <summary>
 		/// Initialization.
 		/// </summary>
-		IEnumerator Start () {
+		private IEnumerator Start () {
 			yield return StartCoroutine (DoSetLanguage (keyboardLayout));
 
 			validationNotice.SetActive (false);
@@ -170,10 +163,10 @@ namespace VRKeys {
 			initialized = true;
 		}
 
-		void PositionAndAttachMallets () {
+		private void PositionAndAttachMallets () {
 			transform.SetParent (playerSpace.transform, false);
 			transform.localPosition = positionRelativeToUser;
-			
+
 			leftMallet.transform.SetParent (leftHand.transform);
 			leftMallet.transform.localPosition = Vector3.zero;
 			leftMallet.transform.localRotation = Quaternion.Euler (90f, 0f, 0f);
@@ -207,7 +200,7 @@ namespace VRKeys {
 		/// Enable the keyboard.
 		/// </summary>
 		public void Enable () {
-			if (! initialized) {
+			if (!initialized) {
 				// Make sure we're initialized first.
 				StartCoroutine (EnableWhenInitialized ());
 				return;
@@ -228,7 +221,7 @@ namespace VRKeys {
 			PositionAndAttachMallets ();
 		}
 
-		IEnumerator EnableWhenInitialized () {
+		private IEnumerator EnableWhenInitialized () {
 			yield return new WaitUntil (() => initialized);
 
 			Enable ();
@@ -300,7 +293,7 @@ namespace VRKeys {
 			return shifted;
 		}
 
-		IEnumerator DelayToggleShift () {
+		private IEnumerator DelayToggleShift () {
 			yield return new WaitForSeconds (0.1f);
 
 			ToggleShift ();
@@ -387,12 +380,12 @@ namespace VRKeys {
 				info.key.SetActiveSize (size);
 			}
 
-			if (initialized && ! disabled) {
+			if (initialized && !disabled) {
 				StartCoroutine (DelayEnableAfterResize ());
 			}
 		}
 
-		IEnumerator DelayEnableAfterResize () {
+		private IEnumerator DelayEnableAfterResize () {
 			yield return new WaitForSeconds (0.3f);
 
 			EnableInput ();
@@ -406,7 +399,7 @@ namespace VRKeys {
 			StartCoroutine (DoSetLanguage (layout));
 		}
 
-		IEnumerator DoSetLanguage (KeyboardLayout lang) {
+		private IEnumerator DoSetLanguage (KeyboardLayout lang) {
 			keyboardLayout = lang;
 			layout = LayoutList.GetLayout (keyboardLayout);
 
@@ -433,7 +426,7 @@ namespace VRKeys {
 			StartCoroutine (DoSetPlaceholderMessage (msg));
 		}
 
-		IEnumerator DoSetPlaceholderMessage (string msg) {
+		private IEnumerator DoSetPlaceholderMessage (string msg) {
 			if (!initialized) {
 				yield return new WaitUntil (() => initialized);
 			}
@@ -500,7 +493,7 @@ namespace VRKeys {
 		/// <summary>
 		/// Setup the keys.
 		/// </summary>
-		IEnumerator SetupKeys () {
+		private IEnumerator SetupKeys () {
 			bool activeState = canvas.activeSelf;
 
 			// Hide everything before setting up the keys

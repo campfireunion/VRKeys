@@ -1,24 +1,24 @@
 ﻿/**
  * Copyright (c) 2017 The Campfire Union Inc - All Rights Reserved.
  *
- * Unauthorized copying of this file, via any medium, is strictly prohibited.
- * This source code is proprietary and confidential.
+ * Licensed under the MIT license. See LICENSE file in the project root for
+ * full license information.
  *
  * Email:   info@campfireunion.com
  * Website: https://www.campfireunion.com
  */
 
 namespace VRKeys {
+
 	/// <summary>
 	/// Base class for keyboard layouts to inherit from in order to support
 	/// additional languages.
-	/// 
+	///
 	/// See the VRKeys/Scripts/Layouts folder for example layouts.
 	/// To add a translation, you will need to register it in the Layouts.cs
 	/// class too.
 	/// </summary>
 	public class Layout {
-
 		public string placeholderMessage = "Tap the keys to begin typing";
 
 		public string spaceButtonLabel = "SPACE";

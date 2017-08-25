@@ -14,16 +14,17 @@ using System.Collections;
 namespace VRKeys {
 
 	/// <summary>
-	/// Enter key that calls Submit() on the keyboard.
+	/// Base class for platform-specific haptics.
 	/// </summary>
-	public class EnterKey : Key {
+	public class Haptics : MonoBehaviour {
+		protected Mallet mallet;
 
-		public override void HandleTriggerEnter (Collider other) {
-			keyboard.Submit ();
+		private void Start () {
+			mallet = GetComponent<Mallet> ();
 		}
 
-		public override void UpdateLayout (Layout translation) {
-			label.text = translation.enterButtonLabel;
+		public virtual void TriggerPulse () {
+			// Override me!
 		}
 	}
 }

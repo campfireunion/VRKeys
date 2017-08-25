@@ -1,8 +1,8 @@
 ﻿/**
  * Copyright (c) 2017 The Campfire Union Inc - All Rights Reserved.
  *
- * Unauthorized copying of this file, via any medium, is strictly prohibited.
- * This source code is proprietary and confidential.
+ * Licensed under the MIT license. See LICENSE file in the project root for
+ * full license information.
  *
  * Email:   info@campfireunion.com
  * Website: https://www.campfireunion.com
@@ -13,11 +13,11 @@ using System.Collections;
 using TMPro;
 
 namespace VRKeys {
+
 	/// <summary>
 	/// An individual letter key.
 	/// </summary>
 	public class LetterKey : Key {
-
 		public TextMeshPro shiftedLabel;
 
 		public string character = "";
@@ -25,6 +25,7 @@ namespace VRKeys {
 		public string shiftedChar = "";
 
 		private bool _shifted = false;
+
 		public bool shifted {
 			get { return _shifted; }
 			set {

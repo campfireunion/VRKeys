@@ -1,8 +1,8 @@
 ﻿/**
  * Copyright (c) 2017 The Campfire Union Inc - All Rights Reserved.
  *
- * Unauthorized copying of this file, via any medium, is strictly prohibited.
- * This source code is proprietary and confidential.
+ * Licensed under the MIT license. See LICENSE file in the project root for
+ * full license information.
  *
  * Email:   info@campfireunion.com
  * Website: https://www.campfireunion.com
@@ -13,11 +13,11 @@ using System.Collections;
 using TMPro;
 
 namespace VRKeys {
+
 	/// <summary>
 	/// An individual key in the VR keyboard.
 	/// </summary>
 	public class Key : MonoBehaviour {
-
 		public Keyboard keyboard;
 
 		public TextMeshPro label;
@@ -82,13 +82,13 @@ namespace VRKeys {
 		}
 
 		public void OnTriggerEnter (Collider other) {
-			if (isPressing || disabled || keyboard.disabled || ! keyboard.initialized) {
+			if (isPressing || disabled || keyboard.disabled || !keyboard.initialized) {
 				return;
 			}
 
 			Mallet mallet = other.gameObject.GetComponent<Mallet> ();
 			if (mallet != null) {
-				if (! mallet.isMovingDownward) {
+				if (!mallet.isMovingDownward) {
 					return;
 				}
 

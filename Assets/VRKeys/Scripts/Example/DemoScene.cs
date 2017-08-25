@@ -1,9 +1,20 @@
-﻿using UnityEngine;
+﻿/**
+ * Copyright (c) 2017 The Campfire Union Inc - All Rights Reserved.
+ *
+ * Licensed under the MIT license. See LICENSE file in the project root for
+ * full license information.
+ *
+ * Email:   info@campfireunion.com
+ * Website: https://www.campfireunion.com
+ */
+
+using UnityEngine;
 using System;
 using System.Text.RegularExpressions;
 using System.Collections;
 
 namespace VRKeys {
+
 	/// <summary>
 	/// Example use of VRKeys keyboard.
 	/// </summary>
@@ -42,7 +53,7 @@ namespace VRKeys {
 
 		/// <summary>
 		/// Press space to show/hide the keyboard.
-		/// 
+		///
 		/// Press Q for Qwerty keyboard, D for Dvorak keyboard, and F for French keyboard.
 		/// </summary>
 		private void Update () {
@@ -80,12 +91,11 @@ namespace VRKeys {
 		public void HandleSubmit (string text) {
 			keyboard.DisableInput ();
 
-			if (! ValidateEmail (text)) {
+			if (!ValidateEmail (text)) {
 				keyboard.ShowValidationMessage ("Please enter a valid email address");
 				keyboard.EnableInput ();
 				return;
 			}
-
 
 			StartCoroutine (SubmitEmail (text));
 		}
@@ -108,7 +118,7 @@ namespace VRKeys {
 		}
 
 		private bool ValidateEmail (string text) {
-			if (! emailValidator.IsMatch (text)) {
+			if (!emailValidator.IsMatch (text)) {
 				return false;
 			}
 			return true;

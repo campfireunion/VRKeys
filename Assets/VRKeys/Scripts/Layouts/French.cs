@@ -1,14 +1,15 @@
 ﻿/**
  * Copyright (c) 2017 The Campfire Union Inc - All Rights Reserved.
  *
- * Unauthorized copying of this file, via any medium, is strictly prohibited.
- * This source code is proprietary and confidential.
+ * Licensed under the MIT license. See LICENSE file in the project root for
+ * full license information.
  *
  * Email:   info@campfireunion.com
  * Website: https://www.campfireunion.com
  */
 
 namespace VRKeys.Layouts {
+
 	/// <summary>
 	/// French language keyboard (AZERTY). Note that some liberties had to be taken
 	/// because of the lack of shift + ctrl combination and diacritic key.
