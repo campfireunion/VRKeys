@@ -25,6 +25,8 @@ namespace VRKeys {
 
 		public string enterButtonLabel = "ENTER";
 
+		public string cancelButtonLabel = "CANCEL";
+
 		public string shiftButtonLabel = "SHIFT";
 
 		public string backspaceButtonLabel = "BACKSPACE";

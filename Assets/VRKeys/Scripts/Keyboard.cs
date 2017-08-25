@@ -133,6 +133,11 @@ namespace VRKeys {
 		/// </summary>
 		public KeyboardSubmitEvent OnSubmit = new KeyboardSubmitEvent ();
 
+		/// <summary>
+		/// Listen for events when Cancel() is called.
+		/// </summary>
+		public UnityEvent OnCancel = new UnityEvent ();
+
 		private LetterKey[] keys;
 
 		private bool shifted = false;
@@ -360,6 +365,14 @@ namespace VRKeys {
 		/// </summary>
 		public void Submit () {
 			OnSubmit.Invoke (text);
+		}
+
+		/// <summary>
+		/// Cancel input and close the keyboard.
+		/// </summary>
+		public void Cancel () {
+			OnCancel.Invoke ();
+			Disable ();
 		}
 
 		/// <summary>

@@ -21,8 +21,13 @@ namespace VRKeys {
 
 		private IEnumerator DoTriggerPulse () {
 			var controller = (mallet.hand == Mallet.MalletHand.Left) ? OVRInput.Controller.LTouch : OVRInput.Controller.RTouch;
-			OVRInput.SetControllerVibration (0.2f, 0.2f, controller);
+			OVRInput.SetControllerVibration (0.3f, 0.3f, controller);
 			yield return null;
+			OVRInput.SetControllerVibration (0f, 0f, controller);
+		}
+
+		private void OnDisable () {
+			var controller = (mallet.hand == Mallet.MalletHand.Left) ? OVRInput.Controller.LTouch : OVRInput.Controller.RTouch;
 			OVRInput.SetControllerVibration (0f, 0f, controller);
 		}
 	}

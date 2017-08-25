@@ -23,6 +23,8 @@ namespace VRKeys.Layouts {
 
 			enterButtonLabel = "ENTRÉE";
 
+			cancelButtonLabel = "ANNULER";
+
 			shiftButtonLabel = "MAJUSCULE";
 
 			backspaceButtonLabel = "RÉTRO-ESPACE";

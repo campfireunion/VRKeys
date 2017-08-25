@@ -42,11 +42,13 @@ namespace VRKeys {
 
 			keyboard.OnUpdate.AddListener (HandleUpdate);
 			keyboard.OnSubmit.AddListener (HandleSubmit);
+			keyboard.OnCancel.AddListener (HandleCancel);
 		}
 
 		private void OnDisable () {
 			keyboard.OnUpdate.RemoveListener (HandleUpdate);
 			keyboard.OnSubmit.RemoveListener (HandleSubmit);
+			keyboard.OnCancel.RemoveListener (HandleCancel);
 
 			keyboard.Disable ();
 		}
@@ -98,6 +100,10 @@ namespace VRKeys {
 			}
 
 			StartCoroutine (SubmitEmail (text));
+		}
+
+		public void HandleCancel () {
+			Debug.Log ("Cancelled keyboard input!");
 		}
 
 		/// <summary>
