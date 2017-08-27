@@ -18,14 +18,14 @@ namespace VRKeys {
 
 		public override void TriggerPulse () {
 			int deviceIndex = (mallet.hand == Mallet.MalletHand.Left)
-				? SteamVR_Controller.GetDeviceIndex (SteamVR_Controller.DeviceRelation.FarthestLeft)
-				: SteamVR_Controller.GetDeviceIndex (SteamVR_Controller.DeviceRelation.FarthestRight);
+				? SteamVR_Controller.GetDeviceIndex (SteamVR_Controller.DeviceRelation.Leftmost)
+				: SteamVR_Controller.GetDeviceIndex (SteamVR_Controller.DeviceRelation.Rightmost);
 
 			if (deviceIndex == -1) return;
 
 			var controller = SteamVR_Controller.Input (deviceIndex);
 
-			controller.TriggerHapticPulse (800, EVRButtonId.k_EButton_Grip);
+			controller.TriggerHapticPulse (800);
 		}
 	}
 }
