@@ -1,6 +1,6 @@
 # VRKeys - A drum-style keyboard for VR in Unity
 
-![VRKeys Screenshot](https://github.com/campfireunion/VRKeys/blob/master/Assets/VRKeys/Textures/vrkeys-screenshot.png?raw=true)
+[![VRKeys Screenshot](https://github.com/campfireunion/VRKeys/blob/master/Assets/VRKeys/Textures/vrkeys-screenshot.png?raw=true)](https://www.youtube.com/watch?v=Q_kUlVTyRag)
 
 VRKeys is an open source keyboard interface for single-line text input in VR, made in Unity.
 
@@ -14,6 +14,10 @@ VRKeys is an open source keyboard interface for single-line text input in VR, ma
 * Ability to enable/disable input while validating or submitting
 * Alternate keyboard layouts for i18n (Dvorak & Azerty for French included)
 * Demo scene shows how to integrate into your own projects.
+
+### Try it out
+
+There are demo builds for both HTC Vive and Oculus Rift available on the [releases page](https://github.com/campfireunion/VRKeys/releases).
 
 ### Requirements
 
