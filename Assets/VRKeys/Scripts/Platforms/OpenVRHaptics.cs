@@ -16,14 +16,20 @@ namespace VRKeys {
 
 	public class OpenVRHaptics : Haptics {
 
+		private int deviceIndex = -1;
+
+		private SteamVR_Controller.Device controller;
+
 		public override void TriggerPulse () {
-			int deviceIndex = (mallet.hand == Mallet.MalletHand.Left)
-				? SteamVR_Controller.GetDeviceIndex (SteamVR_Controller.DeviceRelation.Leftmost)
-				: SteamVR_Controller.GetDeviceIndex (SteamVR_Controller.DeviceRelation.Rightmost);
+			if (deviceIndex == -1) {
+				var trackedObject = GetComponentInParent<SteamVR_TrackedObject> ();
+				if (trackedObject == null) return;
 
-			if (deviceIndex == -1) return;
+				deviceIndex = (int) trackedObject.index;
+				if (deviceIndex == -1) return;
 
-			var controller = SteamVR_Controller.Input (deviceIndex);
+				controller = SteamVR_Controller.Input (deviceIndex);
+			}
 
 			controller.TriggerHapticPulse (800);
 		}
