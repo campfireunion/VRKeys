@@ -33,12 +33,6 @@ namespace VRKeys {
 
 		public string clearButtonLabel = "CLEAR";
 
-		public string smallButtonLabel = "S";
-
-		public string mediumButtonLabel = "M";
-
-		public string largeButtonLabel = "L";
-
 		public string[] row1Keys = { "`", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=" };
 
 		public string[] row1Shift = { "~", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "+" };

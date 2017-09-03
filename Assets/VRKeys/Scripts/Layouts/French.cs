@@ -31,12 +31,6 @@ namespace VRKeys.Layouts {
 
 			clearButtonLabel = "EFFACER";
 
-			smallButtonLabel = "P";
-
-			mediumButtonLabel = "M";
-
-			largeButtonLabel = "G";
-
 			row1Keys = new string[] { "â", "&", "é", "\"", "'", "(", "-", "è", "_", "ç", "à", ")", "=" };
 
 			row1Shift = new string[] { "ê", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "ë" };

@@ -86,26 +86,6 @@ namespace VRKeys {
 
 		public Key[] extraKeys;
 
-		public enum KeyboardSize {
-			Small = 1,
-			Medium = 2,
-			Large = 3
-		}
-
-		[Serializable]
-		public class SizeInfo {
-			public KeyboardSize size;
-			public Vector3 position;
-			public Vector3 scale;
-			public SizeKey key;
-		}
-
-		[Space (15)]
-		public KeyboardSize defaultSize = KeyboardSize.Medium;
-
-		[SerializeField]
-		public SizeInfo[] sizes;
-
 		[Space (15)]
 		public bool leftPressing = false;
 
@@ -142,8 +122,6 @@ namespace VRKeys {
 
 		private bool shifted = false;
 
-		private KeyboardSize size;
-
 		private Layout layout;
 
 		/// <summary>
@@ -158,12 +136,6 @@ namespace VRKeys {
 
 			UpdateDisplayText ();
 			PlaceholderVisibility ();
-
-			if (PlayerPrefs.HasKey ("vrkeys:size")) {
-				defaultSize = (KeyboardSize) PlayerPrefs.GetInt ("vrkeys:size");
-			}
-
-			Resize (defaultSize);
 
 			initialized = true;
 		}
@@ -376,35 +348,6 @@ namespace VRKeys {
 		}
 
 		/// <summary>
-		/// Resize the keyboard.
-		/// </summary>
-		/// <param name="newSize">New size.</param>
-		public void Resize (KeyboardSize newSize) {
-			DisableInput ();
-
-			PlayerPrefs.SetInt ("vrkeys:size", (int) newSize);
-			size = newSize;
-
-			foreach (SizeInfo info in sizes) {
-				if (info.size == size) {
-					keyboardWrapper.transform.localPosition = info.position;
-					keyboardWrapper.transform.localScale = info.scale;
-				}
-				info.key.SetActiveSize (size);
-			}
-
-			if (initialized && !disabled) {
-				StartCoroutine (DelayEnableAfterResize ());
-			}
-		}
-
-		private IEnumerator DelayEnableAfterResize () {
-			yield return new WaitForSeconds (0.3f);
-
-			EnableInput ();
-		}
-
-		/// <summary>
 		/// Set the language of the keyboard.
 		/// </summary>
 		/// <param name="layout">New language.</param>
@@ -423,11 +366,6 @@ namespace VRKeys {
 			// Update extra keys
 			foreach (Key key in extraKeys) {
 				key.UpdateLayout (layout);
-			}
-
-			// Update size keys
-			foreach (SizeInfo info in sizes) {
-				info.key.UpdateLayout (layout);
 			}
 		}
 

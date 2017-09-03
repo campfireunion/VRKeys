@@ -12,11 +12,10 @@ using UnityEngine;
 using System.Collections;
 
 namespace VRKeys {
-
 	/// <summary>
-	/// Base class for platform-specific haptics.
+	/// Base class for platform-specific inputs and controller access.
 	/// </summary>
-	public class Haptics : MonoBehaviour {
+	public class Controller : MonoBehaviour {
 		protected Mallet mallet;
 
 		private void Start () {
@@ -25,6 +24,11 @@ namespace VRKeys {
 
 		public virtual void TriggerPulse () {
 			// Override me!
+		}
+
+		public virtual bool OnGrip () {
+			// Override me!
+			return false;
 		}
 	}
 }

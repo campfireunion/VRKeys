@@ -13,22 +13,36 @@ using System.Collections;
 
 namespace VRKeys {
 
-	public class OculusHaptics : Haptics {
+	public class OculusController : Controller {
+
+		private OVRInput.Controller _controller;
+		private OVRInput.Controller controller {
+			get {
+				if (_controller == OVRInput.Controller.None) {
+					_controller = (mallet.hand == Mallet.MalletHand.Left)
+						? OVRInput.Controller.LTouch
+						: OVRInput.Controller.RTouch;
+				}
+				return _controller;
+			}
+		}
 
 		public override void TriggerPulse () {
 			StartCoroutine (DoTriggerPulse ());
 		}
 
 		private IEnumerator DoTriggerPulse () {
-			var controller = (mallet.hand == Mallet.MalletHand.Left) ? OVRInput.Controller.LTouch : OVRInput.Controller.RTouch;
 			OVRInput.SetControllerVibration (0.3f, 0.3f, controller);
 			yield return null;
 			OVRInput.SetControllerVibration (0f, 0f, controller);
 		}
 
 		private void OnDisable () {
-			var controller = (mallet.hand == Mallet.MalletHand.Left) ? OVRInput.Controller.LTouch : OVRInput.Controller.RTouch;
 			OVRInput.SetControllerVibration (0f, 0f, controller);
+		}
+
+		public override bool OnGrip () {
+			return OVRInput.Get (OVRInput.Button.PrimaryHandTrigger, controller);
 		}
 	}
 }

@@ -29,6 +29,8 @@ namespace VRKeys {
 
 		public MalletHand hand;
 
+		public HandCollider handCollider;
+
 		public bool isMovingDownward {
 			get { return _isMovingDownward; }
 			private set { _isMovingDownward = value; }
@@ -38,7 +40,7 @@ namespace VRKeys {
 
 		private AudioSource audioSource;
 
-		private Haptics haptics;
+		private Controller controller;
 
 		private Vector3 prevPos = Vector3.zero;
 
@@ -47,11 +49,11 @@ namespace VRKeys {
 
 			switch (VRSettings.loadedDeviceName) {
 				case "Oculus":
-					haptics = gameObject.AddComponent<OculusHaptics> ();
+					controller = gameObject.AddComponent<OculusController> ();
 					break;
 
 				case "OpenVR":
-					haptics = gameObject.AddComponent<OpenVRHaptics> ();
+					controller = gameObject.AddComponent<OpenVRController> ();
 					break;
 			}
 		}
@@ -72,8 +74,16 @@ namespace VRKeys {
 			audioSource.PlayOneShot (clipToPlay);
 
 			if (transform.parent.transform.parent != null) {
-				haptics.TriggerPulse ();
+				controller.TriggerPulse ();
 			}
+		}
+
+		/// <summary>
+		/// Get the attached Controller class for input abstractions.
+		/// </summary>
+		/// <returns>Controller.</returns>
+		public Controller Controller () {
+			return controller;
 		}
 	}
 }
