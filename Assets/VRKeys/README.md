@@ -9,6 +9,7 @@ VRKeys is an open source keyboard interface for single-line text input in VR, ma
 
 * Works with both Oculus Touch and HTC Vive
 * Drum-style keyboard input
+* Grab to adjust position and scale
 * Shift key for capitalization and special characters
 * Special @ and .com keys
 * Easy input validation, info, and confirmation messages
