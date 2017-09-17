@@ -42,7 +42,7 @@ namespace VRKeys {
 
 		private Keyboard keyboard;
 
-		private HandCollider positioningHand;
+		private Mallet.MalletHand positioningHand;
 
 		private Vector3 previousPosition;
 
@@ -91,11 +91,14 @@ namespace VRKeys {
 			}
 
 			// Positioning
-			if (leftGrip) {
-				PositionWith (leftHandCollider);
+			if (leftGrip && rightGrip) {
+				var handVector = (leftHandCollider.transform.position + rightHandCollider.transform.position) / 2f;
+				PositionWith (handVector, leftHandCollider.transform.rotation, Mallet.MalletHand.Both);
+			} else if (leftGrip) {
+				PositionWith (leftHandCollider.transform.position, leftHandCollider.transform.rotation, Mallet.MalletHand.Left);
 				changed = true;
 			} else if (rightGrip) {
-				PositionWith (rightHandCollider);
+				PositionWith (rightHandCollider.transform.position, rightHandCollider.transform.rotation, Mallet.MalletHand.Right);
 				changed = true;
 			}
 
@@ -112,31 +115,31 @@ namespace VRKeys {
 			}
 		}
 
-		void PositionWith (HandCollider hand) {
+		void PositionWith (Vector3 handPosition, Quaternion handRotation, Mallet.MalletHand hand) {
 			if (positioningHand != hand) {
 				positioningHand = hand;
-				previousPosition = hand.transform.position;
-				previousRotationX = hand.transform.rotation.eulerAngles.x;
+				previousPosition = handPosition;
+				previousRotationX = handRotation.eulerAngles.x;
 			}
 
 			var pos = keyboard.keyboardWrapper.transform.localPosition;
 
 			keyboard.keyboardWrapper.transform.localPosition = new Vector3 (
-				pos.x + (hand.transform.position.x - previousPosition.x),
-				pos.y + (hand.transform.position.y - previousPosition.y),
-				pos.z + (hand.transform.position.z - previousPosition.z)
+				pos.x + (handPosition.x - previousPosition.x),
+				pos.y + (handPosition.y - previousPosition.y),
+				pos.z + (handPosition.z - previousPosition.z)
 			);
 
 			var rot = keyboard.keyboardWrapper.transform.eulerAngles;
 
 			keyboard.keyboardWrapper.transform.localRotation = Quaternion.Euler (
-				rot.x + (hand.transform.eulerAngles.x - previousRotationX),
+				rot.x + (handRotation.eulerAngles.x - previousRotationX),
 				rot.y,
 				rot.z
 			);
 
-			previousPosition = hand.transform.position;
-			previousRotationX = hand.transform.eulerAngles.x;
+			previousPosition = handPosition;
+			previousRotationX = handRotation.eulerAngles.x;
 		}
 
 		void Resize () {
@@ -162,7 +165,7 @@ namespace VRKeys {
 		void ResetState () {
 			initialHandDistance = -1f;
 			initialApplyScale = 1f;
-			positioningHand = null;
+			positioningHand = Mallet.MalletHand.None;
 		}
 
 		void SaveChanges () {

@@ -23,7 +23,9 @@ namespace VRKeys {
 
 		public enum MalletHand {
 			Left,
-			Right
+			Right,
+			Both,
+			None
 		}
 
 		public MalletHand hand;
