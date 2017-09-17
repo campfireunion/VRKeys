@@ -11,7 +11,6 @@
 using UnityEngine;
 using UnityEngine.VR;
 using System.Collections;
-using NewtonVR;
 using Valve.VR;
 
 namespace VRKeys {
