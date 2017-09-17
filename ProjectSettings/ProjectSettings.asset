@@ -362,7 +362,7 @@ PlayerSettings:
   psmSplashimage: {fileID: 0}
   spritePackerPolicy: 
   scriptingDefineSymbols:
-    1: NVR_SteamVR;NVR_Oculus;NVR_SteamVR
+    1: 
   metroPackageName: VRKeys
   metroPackageVersion: 
   metroCertificatePath: 
