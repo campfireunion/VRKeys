@@ -3,7 +3,7 @@
 [![VRKeys Screenshot](https://github.com/campfireunion/VRKeys/blob/master/Assets/VRKeys/Textures/vrkeys-screenshot.png?raw=true)](https://www.youtube.com/watch?v=Q_kUlVTyRag)
 (click image for video)
 
-VRKeys is an open source keyboard interface for single-line text input in VR, made in Unity and [available for free in the Unity Asset Store](https://www.assetstore.unity3d.com/en/#!/content/99222).
+VRKeys is an open source keyboard interface for single-line text input in VR, made in Unity and [available for free in the Unity Asset Store](https://assetstore.unity.com/packages/tools/input-management/vrkeys-99222).
 
 ### Features
 
