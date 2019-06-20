@@ -24,6 +24,7 @@ In addition to the version on the [Unity Asset Store](https://assetstore.unity.c
 you can manually install via GitHub:
 
 1. Download [VRKeys.unitypackage](https://github.com/campfireunion/VRKeys/blob/master/VRKeys.unitypackage)
+2. Import TextMesh Pro via Window > TextMeshPro > Import TMP Essential Resources
 3. Import into your project via Assets > Import Package > Custom Package
 4. Open `Assets/VRKeys/Scenes/Example Scene.unity` to see a working example scene
 5. Example usage can be found in [DemoScene.cs](https://github.com/campfireunion/VRKeys/blob/master/Assets/VRKeys/Scripts/Example/DemoScene.cs)
