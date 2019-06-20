@@ -46,16 +46,7 @@ namespace VRKeys {
 
 		private void Awake () {
 			audioSource = GetComponent<AudioSource> ();
-
-			switch (XRSettings.loadedDeviceName) {
-				case "Oculus":
-					controller = gameObject.AddComponent<OculusController> ();
-					break;
-
-				case "OpenVR":
-					controller = gameObject.AddComponent<OpenVRController> ();
-					break;
-			}
+			controller = GetComponent<Controller> ();
 		}
 
 		private void FixedUpdate () {

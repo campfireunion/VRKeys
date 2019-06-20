@@ -9,26 +9,50 @@
  */
 
 using UnityEngine;
-using System.Collections;
+using UnityEngine.XR;
+using System.Collections.Generic;
 
 namespace VRKeys {
+
 	/// <summary>
 	/// Base class for platform-specific inputs and controller access.
 	/// </summary>
 	public class Controller : MonoBehaviour {
 		protected Mallet mallet;
 
+		private InputDevice _device;
+
+		private InputDevice device {
+			get {
+				if (_device == null) {
+					var devices = new List<InputDevice> ();
+					InputDevices.GetDevicesWithRole (
+						(mallet.hand == Mallet.MalletHand.Left) ? InputDeviceRole.LeftHanded : InputDeviceRole.RightHanded,
+						devices
+					);
+
+					if (devices.Count > 0) {
+						_device = devices[0];
+					}
+				}
+				return _device;
+			}
+		}
+
 		private void Start () {
 			mallet = GetComponent<Mallet> ();
 		}
 
-		public virtual void TriggerPulse () {
-			// Override me!
+		public void TriggerPulse () {
+			if (device == null) return;
+
+			device.SendHapticImpulse (0, 0.3f, 0.1f);
 		}
 
-		public virtual bool OnGrip () {
-			// Override me!
-			return false;
+		public bool OnGrip () {
+			if (device == null) return false;
+
+			return false;// device.GetPress (Grip);
 		}
 	}
 }
