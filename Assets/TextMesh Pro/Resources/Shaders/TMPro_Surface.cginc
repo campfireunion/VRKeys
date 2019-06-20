@@ -15,12 +15,12 @@ void VertShader(inout appdata_full v, out Input data)
 	data.param.y = 1;
 #else
 	float4 vert = v.vertex;
-	float4 vPosition = mul(UNITY_MATRIX_MVP, vert);
+	float4 vPosition = UnityObjectToClipPos(vert);
 	float2 pixelSize = vPosition.w;
 
 	pixelSize /= float2(_ScaleX, _ScaleY) * mul((float2x2)UNITY_MATRIX_P, _ScreenParams.xy);
 	float scale = rsqrt(dot(pixelSize, pixelSize));
-	scale *= abs(v.texcoord1.y) * _GradientScale * 1.5;
+	scale *= abs(v.texcoord1.y) * _GradientScale * (_Sharpness + 1);
 	scale = lerp(scale * (1 - _PerspectiveFilter), scale, abs(dot(UnityObjectToWorldNormal(v.normal.xyz), normalize(WorldSpaceViewDir(vert)))));
 	data.param.y = scale;
 #endif

@@ -9,6 +9,7 @@
  */
 
 using UnityEngine;
+using UnityEngine.XR;
 using UnityEngine.Events;
 using System;
 using System.Collections;
@@ -27,12 +28,6 @@ namespace VRKeys {
 	/// you have finished validating the submitted text.
 	/// </summary>
 	public class Keyboard : MonoBehaviour {
-		public GameObject playerSpace;
-
-		public GameObject leftHand;
-
-		public GameObject rightHand;
-
 		public Vector3 positionRelativeToUser = new Vector3 (0f, 1.35f, 2f);
 
 		public KeyboardLayout keyboardLayout = KeyboardLayout.Qwerty;
@@ -118,6 +113,12 @@ namespace VRKeys {
 		/// </summary>
 		public UnityEvent OnCancel = new UnityEvent ();
 
+		private GameObject playerSpace;
+
+		private GameObject leftHand;
+
+		private GameObject rightHand;
+
 		private LetterKey[] keys;
 
 		private bool shifted = false;
@@ -128,6 +129,15 @@ namespace VRKeys {
 		/// Initialization.
 		/// </summary>
 		private IEnumerator Start () {
+			XRDevice.SetTrackingSpaceType (TrackingSpaceType.RoomScale);
+
+			playerSpace = new GameObject ("Play Space");
+			//playerSpace.transform.localPosition = InputTracking.GetLocalPosition (XRNode.TrackingReference);
+			//playerSpace.transform.localRotation = InputTracking.GetLocalRotation (XRNode.TrackingReference);
+
+			leftHand = new GameObject ("Left Hand");
+			rightHand = new GameObject ("Right Hand");
+
 			yield return StartCoroutine (DoSetLanguage (keyboardLayout));
 
 			validationNotice.SetActive (false);
@@ -138,6 +148,17 @@ namespace VRKeys {
 			PlaceholderVisibility ();
 
 			initialized = true;
+		}
+
+		private void Update () {
+			//playerSpace.transform.localPosition = InputTracking.GetLocalPosition (XRNode.TrackingReference);
+			//playerSpace.transform.localRotation = InputTracking.GetLocalRotation (XRNode.TrackingReference);
+
+			leftHand.transform.localPosition = InputTracking.GetLocalPosition (XRNode.LeftHand);
+			leftHand.transform.localRotation = InputTracking.GetLocalRotation (XRNode.LeftHand);
+
+			rightHand.transform.localPosition = InputTracking.GetLocalPosition (XRNode.RightHand);
+			rightHand.transform.localRotation = InputTracking.GetLocalRotation (XRNode.RightHand);
 		}
 
 		private void PositionAndAttachMallets () {
