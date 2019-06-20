@@ -37,6 +37,10 @@ namespace VRKeys {
 		/// but you can also use the inspector.
 		/// </summary>
 		private void OnEnable () {
+			GameObject camera = new GameObject ("Main Camera");
+			Camera cam = camera.AddComponent<Camera> ();
+			cam.nearClipPlane = 0.1f;
+
 			keyboard.Enable ();
 			keyboard.SetPlaceholderMessage ("Please enter your email address");
 
