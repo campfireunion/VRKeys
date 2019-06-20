@@ -19,21 +19,16 @@ namespace VRKeys {
 	/// </summary>
 	public class Controller : MonoBehaviour {
 		protected Mallet mallet;
+		protected InputDeviceRole role;
 
 		private InputDevice _device;
 
 		private InputDevice device {
 			get {
 				if (_device == null) {
-					var devices = new List<InputDevice> ();
-					InputDevices.GetDevicesWithRole (
-						(mallet.hand == Mallet.MalletHand.Left) ? InputDeviceRole.LeftHanded : InputDeviceRole.RightHanded,
-						devices
-					);
-
-					if (devices.Count > 0) {
-						_device = devices[0];
-					}
+					List<InputDevice> devices = new List<InputDevice> ();
+					InputDevices.GetDevicesWithRole (role, devices);
+					if (devices.Count > 0) _device = devices[0];
 				}
 				return _device;
 			}
@@ -41,6 +36,8 @@ namespace VRKeys {
 
 		private void Start () {
 			mallet = GetComponent<Mallet> ();
+
+			role = (mallet.hand == Mallet.MalletHand.Left) ? InputDeviceRole.LeftHanded : InputDeviceRole.RightHanded;
 		}
 
 		public void TriggerPulse () {
