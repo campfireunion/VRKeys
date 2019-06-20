@@ -14,8 +14,7 @@ using System.Collections;
 namespace VRKeys {
 
 	public class OculusController : Controller {
-
-		private OVRInput.Controller _controller;
+		/*private OVRInput.Controller _controller;
 		private OVRInput.Controller controller {
 			get {
 				if (_controller == OVRInput.Controller.None) {
@@ -25,24 +24,24 @@ namespace VRKeys {
 				}
 				return _controller;
 			}
-		}
+		}*/
 
 		public override void TriggerPulse () {
-			StartCoroutine (DoTriggerPulse ());
+			//StartCoroutine (DoTriggerPulse ());
 		}
 
 		private IEnumerator DoTriggerPulse () {
-			OVRInput.SetControllerVibration (0.3f, 0.3f, controller);
+			//OVRInput.SetControllerVibration (0.3f, 0.3f, controller);
 			yield return null;
-			OVRInput.SetControllerVibration (0f, 0f, controller);
+			//OVRInput.SetControllerVibration (0f, 0f, controller);
 		}
 
 		private void OnDisable () {
-			OVRInput.SetControllerVibration (0f, 0f, controller);
+			//OVRInput.SetControllerVibration (0f, 0f, controller);
 		}
 
 		public override bool OnGrip () {
-			return OVRInput.Get (OVRInput.Button.PrimaryHandTrigger, controller);
+			return false;// OVRInput.Get (OVRInput.Button.PrimaryHandTrigger, controller);
 		}
 	}
 }

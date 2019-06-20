@@ -9,9 +9,8 @@
  */
 
 using UnityEngine;
-using UnityEngine.VR;
+using UnityEngine.XR;
 using System.Collections;
-using Valve.VR;
 
 namespace VRKeys {
 
@@ -48,7 +47,7 @@ namespace VRKeys {
 		private void Awake () {
 			audioSource = GetComponent<AudioSource> ();
 
-			switch (VRSettings.loadedDeviceName) {
+			switch (XRSettings.loadedDeviceName) {
 				case "Oculus":
 					controller = gameObject.AddComponent<OculusController> ();
 					break;

@@ -10,13 +10,13 @@
 
 using UnityEngine;
 using System.Collections;
-using Valve.VR;
+
+//using Valve.VR;
 
 namespace VRKeys {
 
 	public class OpenVRController : Controller {
-
-		private SteamVR_Controller.Device _controller;
+		/*private SteamVR_Controller.Device _controller;
 		private SteamVR_Controller.Device controller {
 			get {
 				if (_controller == null) {
@@ -30,18 +30,18 @@ namespace VRKeys {
 				}
 				return _controller;
 			}
-		}
+		}*/
 
 		public override void TriggerPulse () {
-			if (controller == null) return;
+			//if (controller == null) return;
 
-			controller.TriggerHapticPulse (800);
+			//controller.TriggerHapticPulse (800);
 		}
 
 		public override bool OnGrip () {
-			if (controller == null) return false;
+			//if (controller == null) return false;
 
-			return controller.GetPress (SteamVR_Controller.ButtonMask.Grip);
+			return false;// controller.GetPress (SteamVR_Controller.ButtonMask.Grip);
 		}
 	}
 }
