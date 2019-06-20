@@ -49,7 +49,9 @@ namespace VRKeys {
 		public bool OnGrip () {
 			if (device == null) return false;
 
-			return false;// device.GetPress (Grip);
+			bool value;
+			device.TryGetFeatureValue (CommonUsages.gripButton, out value);
+			return value;
 		}
 	}
 }
