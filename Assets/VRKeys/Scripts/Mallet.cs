@@ -62,6 +62,7 @@ namespace VRKeys {
 		/// </summary>
 		/// <param name="key">Key.</param>
 		public void HandleTriggerEnter (Key key) {
+			audioSource.Stop ();
 			audioSource.PlayOneShot (clipToPlay);
 
 			if (transform.parent.transform.parent != null) {

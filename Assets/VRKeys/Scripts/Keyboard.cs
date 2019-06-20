@@ -132,8 +132,8 @@ namespace VRKeys {
 			XRDevice.SetTrackingSpaceType (TrackingSpaceType.RoomScale);
 
 			playerSpace = new GameObject ("Play Space");
-			playerSpace.transform.localPosition = InputTracking.GetLocalPosition (XRNode.TrackingReference);
-			playerSpace.transform.localRotation = InputTracking.GetLocalRotation (XRNode.TrackingReference);
+			//playerSpace.transform.localPosition = InputTracking.GetLocalPosition (XRNode.TrackingReference);
+			//playerSpace.transform.localRotation = InputTracking.GetLocalRotation (XRNode.TrackingReference);
 
 			leftHand = new GameObject ("Left Hand");
 			rightHand = new GameObject ("Right Hand");
@@ -151,8 +151,8 @@ namespace VRKeys {
 		}
 
 		private void Update () {
-			playerSpace.transform.localPosition = InputTracking.GetLocalPosition (XRNode.TrackingReference);
-			playerSpace.transform.localRotation = InputTracking.GetLocalRotation (XRNode.TrackingReference);
+			//playerSpace.transform.localPosition = InputTracking.GetLocalPosition (XRNode.TrackingReference);
+			//playerSpace.transform.localRotation = InputTracking.GetLocalRotation (XRNode.TrackingReference);
 
 			leftHand.transform.localPosition = InputTracking.GetLocalPosition (XRNode.LeftHand);
 			leftHand.transform.localRotation = InputTracking.GetLocalRotation (XRNode.LeftHand);

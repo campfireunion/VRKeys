@@ -43,7 +43,7 @@ namespace VRKeys {
 		public void TriggerPulse () {
 			if (device == null) return;
 
-			device.SendHapticImpulse (0, 0.3f, 0.1f);
+			device.SendHapticImpulse (0, 1f, 0.5f);
 		}
 
 		public bool OnGrip () {

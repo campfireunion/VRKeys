@@ -12,18 +12,19 @@ using UnityEngine;
 using System.Collections;
 
 namespace VRKeys {
+
 	public class HandCollider : MonoBehaviour {
 		public Mallet mallet;
 
 		public bool inKeyboard = false;
 
-		void OnTriggerEnter (Collider other) {
+		private void OnTriggerEnter (Collider other) {
 			if (other.gameObject.name == "KeyboardCollider") {
 				inKeyboard = true;
 			}
 		}
 
-		void OnTriggerExit (Collider other) {
+		private void OnTriggerExit (Collider other) {
 			if (other.gameObject.name == "KeyboardCollider") {
 				inKeyboard = false;
 			}
