@@ -21,7 +21,7 @@ VRKeys is an open source keyboard interface for single-line text input in VR, ma
 ### Manual installation
 
 In addition to the version on the [Unity Asset Store](https://assetstore.unity.com/packages/tools/input-management/vrkeys-99222),
-you can manually install via GitHub:
+you can manually install VRKeys into an existing VR project (assumes VR support is enabled in your project) via:
 
 1. Download [VRKeys.unitypackage](https://github.com/campfireunion/VRKeys/blob/master/VRKeys.unitypackage)
 2. Import TextMesh Pro via Window > TextMeshPro > Import TMP Essential Resources
