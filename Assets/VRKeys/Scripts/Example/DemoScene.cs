@@ -40,6 +40,7 @@ namespace VRKeys {
 			GameObject camera = new GameObject ("Main Camera");
 			Camera cam = camera.AddComponent<Camera> ();
 			cam.nearClipPlane = 0.1f;
+			camera.AddComponent<AudioListener> ();
 
 			keyboard.Enable ();
 			keyboard.SetPlaceholderMessage ("Please enter your email address");
