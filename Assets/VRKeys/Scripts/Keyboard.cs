@@ -28,6 +28,8 @@ namespace VRKeys {
 	/// you have finished validating the submitted text.
 	/// </summary>
 	public class Keyboard : MonoBehaviour {
+		public GameObject playerSpace;
+
 		public Vector3 positionRelativeToUser = new Vector3 (0f, 1.35f, 2f);
 
 		public KeyboardLayout keyboardLayout = KeyboardLayout.Qwerty;
@@ -113,8 +115,6 @@ namespace VRKeys {
 		/// </summary>
 		public UnityEvent OnCancel = new UnityEvent ();
 
-		private GameObject playerSpace;
-
 		private GameObject leftHand;
 
 		private GameObject rightHand;
@@ -131,7 +131,7 @@ namespace VRKeys {
 		private IEnumerator Start () {
 			XRDevice.SetTrackingSpaceType (TrackingSpaceType.RoomScale);
 
-			playerSpace = new GameObject ("Play Space");
+			if (playerSpace == null) playerSpace = new GameObject ("Play Space");
 			//playerSpace.transform.localPosition = InputTracking.GetLocalPosition (XRNode.TrackingReference);
 			//playerSpace.transform.localRotation = InputTracking.GetLocalRotation (XRNode.TrackingReference);
 
