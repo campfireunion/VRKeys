@@ -129,7 +129,9 @@ namespace VRKeys {
 		/// Initialization.
 		/// </summary>
 		private IEnumerator Start () {
-			XRDevice.SetTrackingSpaceType (TrackingSpaceType.RoomScale);
+			if (XRDevice.GetTrackingSpaceType () != TrackingSpaceType.RoomScale) {
+				XRDevice.SetTrackingSpaceType (TrackingSpaceType.RoomScale);
+			}
 
 			if (playerSpace == null) playerSpace = new GameObject ("Play Space");
 			//playerSpace.transform.localPosition = InputTracking.GetLocalPosition (XRNode.TrackingReference);
