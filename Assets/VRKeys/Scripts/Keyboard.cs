@@ -140,6 +140,9 @@ namespace VRKeys {
 			leftHand = new GameObject ("Left Hand");
 			rightHand = new GameObject ("Right Hand");
 
+			leftHand.transform.SetParent (playerSpace.transform);
+			rightHand.transform.SetParent (playerSpace.transform);
+
 			yield return StartCoroutine (DoSetLanguage (keyboardLayout));
 
 			validationNotice.SetActive (false);
