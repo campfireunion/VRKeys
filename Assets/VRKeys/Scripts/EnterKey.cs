@@ -19,6 +19,10 @@ namespace VRKeys {
 	public class EnterKey : Key {
 
 		public override void HandleTriggerEnter (Collider other) {
+			PressKey ();
+		}
+
+		public override void PressKey () {
 			keyboard.Submit ();
 		}
 

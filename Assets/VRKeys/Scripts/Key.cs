@@ -106,6 +106,13 @@ namespace VRKeys {
 			}
 		}
 
+		/// <summary>
+		/// Manually trigger a key press.
+		/// </summary>
+		public virtual void PressKey () {
+			ActivateFor (0.3f);
+		}
+
 		private IEnumerator Press (Collider other, Mallet mallet) {
 			isPressing = true;
 

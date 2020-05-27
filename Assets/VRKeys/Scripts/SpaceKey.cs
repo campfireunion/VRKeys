@@ -19,9 +19,13 @@ namespace VRKeys {
 	public class SpaceKey : Key {
 
 		public override void HandleTriggerEnter (Collider other) {
+			PressKey ();
+		}
+
+		public override void PressKey () {
 			keyboard.AddCharacter (" ");
 
-			ActivateFor (0.3f);
+			base.PressKey ();
 		}
 
 		public override void UpdateLayout (Layout translation) {
